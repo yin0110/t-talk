@@ -1,0 +1,115 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: "DM Sans", sans-serif;
+}
+body {
+	/* overflow: hidden; */
+	overflow-x: hidden;
+}
+.wholeSection {
+	display: flex;
+	flex-direction: row;
+}
+
+.nav--functionbar {
+	background-color: #16a364;
+	width: 60px;
+	height: 100vw;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.nav--functionbar__addperson {
+	margin-top: 160px;
+	height: 36.54px;
+	width: 36.54px;
+	margin-left: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.addperson__icon,
+.chatting__icon,
+.setting__icon {
+	width: 20px;
+	height: 20px;
+	filter: brightness(0) invert(1);
+}
+.contactperson__icon {
+	width: 16px;
+	height: 19px;
+	filter: brightness(0) invert(1);
+}
+
+.addperson__icon:hover {
+	filter: invert(0.32) sepia(1) saturate(5) hue-rotate(67deg);
+}
+
+.chatting__icon:hover {
+	filter: invert(0.32) sepia(1) saturate(5) hue-rotate(80deg);
+}
+
+.contactperson__icon:hover {
+	filter: invert(0.7) sepia(1) saturate(5) hue-rotate(81deg);
+}
+
+.nav--functionbar__contactperson,
+.nav--functionbar__chatting,
+.nav--functionbar__setting {
+	margin-top: 48px;
+	height: 36.54px;
+	width: 36.54px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: 2px;
+	margin-top: 46px;
+}
+.nav--functionbar__addperson:hover {
+	background-color: #ffff;
+	border-radius: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: 2px;
+	cursor: pointer;
+}
+.nav--functionbar__chatting:hover {
+	background-color: #ffff;
+	width: 36.54px;
+	height: 36.54px;
+	border-radius: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.nav--functionbar__contactperson:hover {
+	background-color: #ffff;
+	width: 36.54px;
+	height: 36.54px;
+	border-radius: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: 2px;
+	cursor: pointer;
+}
+.setting__icon:hover {
+	filter: invert(0.7) sepia(1) saturate(5) hue-rotate(81deg);
+}
+.nav--functionbar__setting:hover {
+	background-color: #ffff;
+	width: 36.54px;
+	height: 36.54px;
+	border-radius: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 42px;
+	cursor: pointer;
+}

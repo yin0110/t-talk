@@ -1,0 +1,160 @@
+.chattingRoom--content {
+	height: 352px;
+}
+.chattingRoom--content__user {
+	margin-top: 20px;
+	display: flex;
+	flex-direction: row-reverse;
+	align-content: flex-end;
+}
+.chattingRoom--content__userImg {
+	background-color: darkgreen;
+	border-radius: 100px;
+	width: 36px;
+	height: 36px;
+	margin-right: 33.68px;
+	/* margin-left: 755.65px; */
+}
+.chattingRoom--content__textBox {
+	display: flex;
+	background-color: #2cab73;
+	width: 200px;
+	margin-right: 13.65px;
+	border-radius: 20px 20px 0px 20px;
+	align-items: center;
+	font-size: 14px;
+	color: #ffff;
+	font-weight: 400;
+}
+.content__textBox__texting {
+	margin-left: 26px;
+}
+.chattingRoom--content__messageTime {
+	margin-right: 11.7px;
+	color: #989fc9;
+	font-size: 12px;
+	margin-top: 10px;
+}
+
+.chattingRoom--content__person {
+	display: flex;
+	/* flex-direction: row-reverse;
+	align-content: flex-end; */
+}
+.chattingRoom--content__personImg {
+	background-color: #ffff;
+	border-radius: 100px;
+	width: 36px;
+	height: 36px;
+	margin-left: 29px;
+	/* margin-left: 755.65px; */
+}
+.chattingRoom--content__personTextBox {
+	display: flex;
+	background-color: #ffff;
+	width: 200px;
+	margin-left: 11.33px;
+	border-radius: 20px 20px 20px 0px;
+	align-items: center;
+	font-size: 14px;
+	font-weight: 400;
+}
+.content__textBox__personTexting {
+	margin-left: 13px;
+}
+.chattingRoom--content__personMessageTime {
+	margin-left: 11px;
+	color: #989fc9;
+	font-size: 12px;
+	margin-top: 10px;
+}
+
+.messageBar {
+	display: flex;
+	flex-direction: row;
+	margin-top: 0px;
+	width: 825px;
+	height: 68px;
+	background-color: #ffff;
+	position: relative;
+}
+.messageBar__tool {
+	margin-left: 20px;
+	position: relative;
+	top: 17px;
+	height: 36px;
+	width: 36px;
+	border-radius: 100px;
+	/* background-color: #989fc9; */
+}
+.messageBar__tool__border {
+	z-index: 1;
+	height: 36px;
+	width: 36px;
+}
+.messageBar__tool:hover {
+	filter: invert(0.04);
+}
+
+.messageBar__tool__icon {
+	position: absolute;
+	z-index: 3;
+	height: 19px;
+	width: 19px;
+	left: 8px;
+	top: 8px;
+}
+.messageBar__emoji {
+	margin-left: 6.23px;
+	position: relative;
+	top: 18px;
+	height: 36px;
+	width: 36px;
+	border-radius: 100px;
+}
+.messageBar__emoji:hover {
+	filter: invert(0.04);
+}
+.messageBar__emoji__border {
+	z-index: 1;
+	height: 36px;
+	width: 36px;
+}
+.messageBar__emoji__icon {
+	position: absolute;
+	z-index: 3;
+	height: 18.5px;
+	width: 19px;
+	left: 9px;
+	top: 8px;
+}
+.messageBar__texting__input {
+	background-color: #f6f6f9;
+	width: 628px;
+	height: 40px;
+	border: none;
+	border-radius: 23px;
+	margin-top: 16px;
+	margin-left: 3px;
+	padding-left: 11px;
+	z-index: 1;
+}
+.messageBar__texting {
+	position: relative;
+}
+.messageBar__texting__border {
+	width: 28px;
+	height: 28px;
+	z-index: 2;
+	position: absolute;
+	top: 22px;
+	right: 10px;
+}
+.messageBar__texting__send {
+	width: 12.44px;
+	height: 11.96px;
+	position: absolute;
+	top: 30px;
+	right: 17px;
+	z-index: 3;
+}

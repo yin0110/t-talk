@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>t-talk</title>
+		<link rel="stylesheet" href="static/css/navbar.css" />
+		<link rel="stylesheet" href="static/css/room--personSection.css" />
+		<link rel="stylesheet" href="static/css/chattingRoom.css" />
+		<link rel="stylesheet" href="static/css/chattingRoom--content.css" />
+	</head>
+	<body>
+		<div class="wholeSection">
+			<div class="nav--functionbar">
+				<div class="nav--functionbar__addperson">
+					<img class="nav--functionbar__chosenwhite" src="" alt="" />
+					<img class="addperson__icon" src="static/img/plus1.png" alt="" />
+				</div>
+				<div class="nav--functionbar__contactperson">
+					<!-- <img
+						class="nav--functionbar__hosenwhite"
+						src="/static/img/white.png"
+						alt=""
+					/> -->
+					<img class="contactperson__icon" src="static/img/person.png" alt="" />
+				</div>
+				<div class="nav--functionbar__chatting">
+					<!-- <img
+						class="nav--functionbar__hosenwhite"
+						src="static/img/roundBorder.png"
+						alt=""
+					/> -->
+					<img class="chatting__icon" src="static/img/chat1.png" alt="" />
+				</div>
+				<div class="nav--functionbar__setting">
+					<!-- <img class="nav--functionbar__hosenwhite" src="" alt="" /> -->
+					<img class="setting__icon" src="static/img/set.png" alt="" />
+				</div>
+			</div>
+			<div class="room--personSection">
+				<div class="room--personSection__title">
+					T-talk
+					<p class="room--personSection__subTitle">Chat list</p>
+				</div>
+				<div class="room--personSection__search">
+					<img
+						class="personSection__search__icon"
+						src="static/img/greensearch.png"
+						alt=""
+					/>
+					<input
+						class="personSection__search__input"
+						type="text"
+						placeholder="Search"
+					/>
+				</div>
+				<div class="room--personSection__chatInfo">
+					<img
+						class="personSection__chatInfo__personImg"
+						src="/static/img/barysan.png"
+						alt=""
+					/>
+					<div class="personSection__chatInfo__roomName">yin chuang</div>
+					<div class="personSection__chatInfo__messageTime">09:00</div>
+					<div class="personSection__chatInfo__latestMessage">今天天氣好</div>
+				</div>
+			</div>
+			<div class="chattingRoom">
+				<div class="chattingRoom--user__info">
+					<img class="chattingRoom--user__img" src="" alt="" />
+					<div class="chattingRoom--user__name">abc</div>
+				</div>
+				<div class="chattingRoom--chatPerson__info">
+					<img
+						class="chattingRoom--chatPerson__img"
+						src="static/img/barysan.png"
+						alt=""
+					/>
+					<div class="chattingRoom--chatPerson__name">
+						yin Chuang
+						<div class="chattingRoom--chatPerson__status">Online</div>
+					</div>
+					<div class="chattingRoom--chatPerson__toolIcon">
+						<div class="chatPerson__toolIcon__paint">
+							<img
+								class="toolIcon__whiteBorder"
+								src="/static/img/round.png"
+								alt=""
+							/>
+							<img
+								class="toolIcon__paint__icon"
+								src="/static/img/pen1.png"
+								alt=""
+							/>
+						</div>
+						<div class="chatPerson__toolIcon__search">
+							<img
+								class="toolIcon__whiteBorder"
+								src="/static/img/round.png"
+								alt=""
+							/>
+							<img
+								class="toolIcon__search__icon"
+								src="/static/img/searchblack.png"
+								alt=""
+							/>
+						</div>
+						<div class="chatPerson__toolIcon__delete">
+							<img
+								class="toolIcon__whiteBorder__trash"
+								src="/static/img/round.png"
+								alt=""
+							/>
+							<img
+								class="toolIcon__delete__icon"
+								src="/static/img/delete.png"
+								alt=""
+							/>
+						</div>
+						<div class="chatPerson__toolIcon__star">
+							<img
+								class="toolIcon__whiteBorder__star"
+								src="/static/img/round.png"
+								alt=""
+							/>
+							<img
+								class="toolIcon__star__icon"
+								src="/static/img/star.png"
+								alt=""
+							/>
+						</div>
+					</div>
+				</div>
+				<div class=".chattingRoom--div__hr">
+					<hr class="chattingRoom--hr" />
+				</div>
+				<div class="chattingRoom--content">
+					<div class="chattingRoom--content__user">
+						<img class="chattingRoom--content__userImg" src="" alt="" />
+						<div class="chattingRoom--content__textBox">
+							<p class="content__textBox__texting">這是示範版本</p>
+						</div>
+						<div class="chattingRoom--content__messageTime">09:00</div>
+					</div>
+					<div class="chattingRoom--content__person">
+						<img
+							class="chattingRoom--content__personImg"
+							src="/static/img/barysan.png"
+							alt=""
+						/>
+						<div class="chattingRoom--content__personTextBox">
+							<p class="content__textBox__personTexting">這是示範版本</p>
+						</div>
+						<div class="chattingRoom--content__personMessageTime">09:00</div>
+					</div>
+				</div>
+				<div class="messageBar">
+					<div class="messageBar__tool">
+						<img
+							class="messageBar__tool__border"
+							src="/static/img/greyborder.png"
+							alt=""
+						/>
+						<img
+							class="messageBar__tool__icon"
+							src="/static/img/tool.png"
+							alt=""
+						/>
+					</div>
+					<div class="messageBar__emoji">
+						<img
+							class="messageBar__emoji__border"
+							src="/static/img/greyborder.png"
+							alt=""
+						/>
+						<img
+							class="messageBar__emoji__icon"
+							src="/static/img/emoji.png"
+							alt=""
+						/>
+					</div>
+					<div class="messageBar__texting">
+						<input
+							class="messageBar__texting__input"
+							type="text"
+							placeholder="Type your message..."
+						/>
+						<img
+							class="messageBar__texting__border"
+							src="/static/img/Bggreen.png"
+							alt=""
+						/>
+						<img
+							class="messageBar__texting__send"
+							src="/static/img/send.png"
+							alt=""
+						/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
