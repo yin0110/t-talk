@@ -5,12 +5,29 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>t-talk</title>
-		<link rel="stylesheet" href="static/css/navbar.css" />
-		<link rel="stylesheet" href="static/css/room--personSection.css" />
-		<link rel="stylesheet" href="static/css/chattingRoom.css" />
-		<link rel="stylesheet" href="static/css/chattingRoom--content.css" />
+		<link
+			rel="stylesheet"
+			href="{{url_for('static', filename='/css/navbar.css')}}"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{url_for('static', filename='/css/room--personSection.css')}}"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{url_for('static', filename='/css/chattingRoom.css')}}"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{url_for('static', filename='/css/chattingRoom--content.css')}}"
+		/>
 	</head>
 	<body>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+			integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+			crossorigin="anonymous"
+		></script>
 		<div class="wholeSection">
 			<div class="nav--functionbar">
 				<div class="nav--functionbar__addperson">
@@ -70,6 +87,11 @@
 				<div class="chattingRoom--user__info">
 					<img class="chattingRoom--user__img" src="" alt="" />
 					<div class="chattingRoom--user__name">abc</div>
+					<img
+						class="chattingRoom--user__arrow"
+						src="/static/img/arrow.png"
+						alt=""
+					/>
 				</div>
 				<div class="chattingRoom--chatPerson__info">
 					<img
@@ -186,7 +208,19 @@
 							type="text"
 							placeholder="Type your message..."
 						/>
-						<img
+						<div class="messageBar__send">
+							<img
+								class="messageBar__texting__border"
+								src="/static/img/Bggreen.png"
+								alt=""
+							/>
+							<img
+								class="messageBar__texting__send"
+								src="/static/img/send.png"
+								alt=""
+							/>
+						</div>
+						<!-- <img
 							class="messageBar__texting__border"
 							src="/static/img/Bggreen.png"
 							alt=""
@@ -195,10 +229,11 @@
 							class="messageBar__texting__send"
 							src="/static/img/send.png"
 							alt=""
-						/>
+						/> -->
 					</div>
 				</div>
 			</div>
 		</div>
 	</body>
+	<script src="{{url_for('static', filename='/js/socket.js')}}"></script>
 </html>

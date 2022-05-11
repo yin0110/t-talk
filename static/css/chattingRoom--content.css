@@ -1,11 +1,13 @@
 .chattingRoom--content {
 	height: 352px;
+	overflow: auto;
 }
 .chattingRoom--content__user {
-	margin-top: 20px;
+	margin-top: 12px;
 	display: flex;
 	flex-direction: row-reverse;
 	align-content: flex-end;
+	margin-bottom: 10px;
 }
 .chattingRoom--content__userImg {
 	background-color: darkgreen;
@@ -18,16 +20,21 @@
 .chattingRoom--content__textBox {
 	display: flex;
 	background-color: #2cab73;
-	width: 200px;
+	max-width: 300px;
 	margin-right: 13.65px;
 	border-radius: 20px 20px 0px 20px;
 	align-items: center;
 	font-size: 14px;
 	color: #ffff;
 	font-weight: 400;
+	word-break: break-all;
+	word-wrap: break-word;
 }
 .content__textBox__texting {
-	margin-left: 26px;
+	margin-left: 12px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	margin-right: 12px;
 }
 .chattingRoom--content__messageTime {
 	margin-right: 11.7px;
@@ -38,6 +45,7 @@
 
 .chattingRoom--content__person {
 	display: flex;
+	margin-top: 12px;
 	/* flex-direction: row-reverse;
 	align-content: flex-end; */
 }
@@ -52,15 +60,21 @@
 .chattingRoom--content__personTextBox {
 	display: flex;
 	background-color: #ffff;
-	width: 200px;
+	max-width: 260px;
 	margin-left: 11.33px;
 	border-radius: 20px 20px 20px 0px;
 	align-items: center;
 	font-size: 14px;
 	font-weight: 400;
+	word-break: break-all;
+	word-wrap: break-word;
+	margin-bottom: 10px;
 }
 .content__textBox__personTexting {
 	margin-left: 13px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	margin-right: 12px;
 }
 .chattingRoom--content__personMessageTime {
 	margin-left: 11px;
@@ -134,7 +148,7 @@
 	height: 40px;
 	border: none;
 	border-radius: 23px;
-	margin-top: 16px;
+	margin-top: 14px;
 	margin-left: 3px;
 	padding-left: 11px;
 	z-index: 1;
@@ -147,14 +161,23 @@
 	height: 28px;
 	z-index: 2;
 	position: absolute;
-	top: 22px;
-	right: 10px;
 }
 .messageBar__texting__send {
 	width: 12.44px;
 	height: 11.96px;
 	position: absolute;
-	top: 30px;
-	right: 17px;
 	z-index: 3;
+}
+
+.messageBar__send {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 28px;
+	height: 28px;
+	border-radius: 100px;
+	position: absolute;
+	top: 22px;
+	right: 10px;
+	cursor: pointer;
 }
