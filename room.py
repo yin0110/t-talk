@@ -1,13 +1,12 @@
-import re
 
 
 class contact_room():
-    def __init__(self, room_id, room_title, room_img, namespace, private_room=False):
+    def __init__(self, room_id, room_title, room_img, namespace):
         self.room_id = room_id
         self.room_title = room_title
         self.room_img = room_img
         self.namespace = namespace
-        self.private_room = private_room
+        # self.private_room = private_room
         self.history = []
 
     def add_message(self, message):
@@ -18,7 +17,7 @@ class contact_room():
         self.history = []
 
     def __repr__(self):
-        return f'{self.room_id} {self.room_title} {self.room_img} {self.namespace} {self.private_room}'
+        return f'{self.room_id} {self.room_title} {self.room_img} {self.namespace}'
 
 
 # r = room(2, 3, 6)

@@ -31,23 +31,12 @@
 		<div class="wholeSection">
 			<div class="nav--functionbar">
 				<div class="nav--functionbar__addperson">
-					<img class="nav--functionbar__chosenwhite" src="" alt="" />
 					<img class="addperson__icon" src="static/img/plus1.png" alt="" />
 				</div>
 				<div class="nav--functionbar__contactperson">
-					<!-- <img
-						class="nav--functionbar__hosenwhite"
-						src="/static/img/white.png"
-						alt=""
-					/> -->
 					<img class="contactperson__icon" src="static/img/person.png" alt="" />
 				</div>
 				<div class="nav--functionbar__chatting">
-					<!-- <img
-						class="nav--functionbar__hosenwhite"
-						src="static/img/roundBorder.png"
-						alt=""
-					/> -->
 					<img class="chatting__icon" src="static/img/chat1.png" alt="" />
 				</div>
 				<div class="nav--functionbar__setting">
@@ -60,6 +49,7 @@
 					T-talk
 					<p class="room--personSection__subTitle">Chat list</p>
 				</div>
+				<div class="room--personSection__addFriend">Add Friends</div>
 				<div class="room--personSection__search">
 					<img
 						class="personSection__search__icon"
@@ -72,16 +62,31 @@
 						placeholder="Search"
 					/>
 				</div>
-				<div class="room--personSection__chatInfo">
+				<div class="room--personSection__searchFriend">
 					<img
-						class="personSection__chatInfo__personImg"
-						src="/static/img/barysan.png"
+						class="personSection__searchFriend__icon"
+						src="static/img/greensearch.png"
 						alt=""
 					/>
-					<div class="personSection__chatInfo__roomName">yin chuang</div>
-					<div class="personSection__chatInfo__messageTime">09:00</div>
-					<div class="personSection__chatInfo__latestMessage">今天天氣好</div>
+					<input
+						class="personSection__search__inputFriend"
+						type="text"
+						placeholder="Search Friend Email"
+					/>
 				</div>
+				<div class="room--personSection__chatInfoOuter">
+					<div class="room--personSection__chatInfo">
+						<img
+							class="personSection__chatInfo__personImg"
+							src="/static/img/barysan.png"
+							alt=""
+						/>
+						<div class="personSection__chatInfo__roomName">yin chuang</div>
+						<div class="personSection__chatInfo__messageTime">09:00</div>
+						<div class="personSection__chatInfo__latestMessage">今天天氣好</div>
+					</div>
+				</div>
+				<div class="room--personSection__emailOuter"></div>
 			</div>
 			<div class="chattingRoom">
 				<div class="chattingRoom--user__info">
@@ -220,20 +225,15 @@
 								alt=""
 							/>
 						</div>
-						<!-- <img
-							class="messageBar__texting__border"
-							src="/static/img/Bggreen.png"
-							alt=""
-						/>
-						<img
-							class="messageBar__texting__send"
-							src="/static/img/send.png"
-							alt=""
-						/> -->
 					</div>
 				</div>
 			</div>
 		</div>
 	</body>
+	<script src="{{url_for('static', filename='/js/buildContent.js')}}"></script>
+	<script src="{{url_for('static', filename='/js/clickfunction.js')}}"></script>
+	<script src="{{url_for('static', filename='/js/chatroom.js')}}"></script>
+	<script src="{{url_for('static', filename='/js/chatroomFunction.js')}}"></script>
+	<script src="{{url_for('static', filename='/js/chatroomAddFriend.js')}}"></script>
 	<script src="{{url_for('static', filename='/js/socket.js')}}"></script>
 </html>

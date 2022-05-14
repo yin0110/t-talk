@@ -1,0 +1,224 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: "DM Sans", sans-serif;
+	/* overflow-y: hidden; */
+}
+.outer {
+	width: 1200px;
+	height: 700px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.login {
+	margin-top: 80px;
+	margin-bottom: 80px;
+	width: 428px;
+	height: 603px;
+	border: 2px solid #7b649a;
+	border-radius: 7px;
+	/* border-color: #7b649a; */
+}
+.login--welcomeDiv {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.login--title {
+	margin-top: 38px;
+	font-family: "DM Sans", sans-serif;
+	font-style: italic;
+	font-weight: 900;
+	font-size: 36px;
+	background: linear-gradient(
+		88.91deg,
+		#00854a 46.13%,
+		#00160c 88.15%,
+		#000000 112.93%
+	);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+.login--welcome {
+	margin-top: 9px;
+	font-family: "DM Sans", sans-serif;
+	font-weight: 500;
+	font-size: 22px;
+}
+.login--welcomeDetail {
+	margin-top: 7px;
+	font-family: "DM Sans", sans-serif;
+	font-size: 14px;
+	color: rgba(0, 0, 0, 0.33);
+}
+.login--form {
+	display: flex;
+	flex-direction: column;
+	margin-left: 59px;
+	margin-top: 17px;
+	margin-right: 59px;
+}
+.login--form__name {
+	margin-bottom: 9px;
+	font-family: "Noto Sans", sans-serif;
+	font-size: 14px;
+	font-weight: 500;
+	display: none;
+}
+.login--form__nameInput {
+	font-family: "Noto Sans", sans-serif;
+	font-size: 14px;
+	width: 311.5px;
+	height: 40px;
+	padding-left: 13px;
+	margin-bottom: 10px;
+	display: none;
+}
+.login--form__email {
+	margin-bottom: 9px;
+	font-family: "Noto Sans", sans-serif;
+	font-size: 14px;
+	font-weight: 500;
+}
+
+.login--form__emailInput {
+	font-family: "Noto Sans", sans-serif;
+	font-size: 14px;
+	width: 311.5px;
+	height: 40px;
+	padding-left: 13px;
+	margin-bottom: 21px;
+}
+.login--form__password {
+	margin-bottom: 9px;
+	font-family: "Noto Sans", sans-serif;
+	font-size: 14px;
+	font-weight: 500;
+}
+.login--form__passwordInput {
+	font-family: "Noto Sans", sans-serif;
+	font-size: 14px;
+	width: 311.5px;
+	height: 40px;
+	padding-left: 13px;
+	margin-bottom: 10px;
+}
+.login--form__passwordSetting {
+	display: flex;
+	flex-direction: row;
+	/* font-weight: 500; */
+	font-size: 14px;
+	color: #000000;
+	opacity: 0.5;
+}
+.form__passwordSetting__remember {
+	margin-right: 40px;
+}
+.login--form__register {
+	color: #000000;
+	opacity: 0.5;
+	font-family: "Noto Sans", sans-serif;
+	font-size: 13px;
+	margin-top: 40px;
+	margin-left: 258px;
+}
+.login--form__login {
+	color: #000000;
+	opacity: 0.5;
+	font-family: "Noto Sans", sans-serif;
+	font-size: 13px;
+	margin-top: 5px;
+	margin-left: 278px;
+	display: none;
+}
+.login--form__login:hover {
+	color: #000000;
+	opacity: 0.85;
+	cursor: pointer;
+}
+.login--form__register:hover {
+	color: #000000;
+	opacity: 0.85;
+	cursor: pointer;
+}
+.login--form__loginButton {
+	margin-top: 5px;
+	background-color: #00854a;
+	width: 311.5px;
+	border: none;
+	color: #ffff;
+	font-family: "Nunito", sans-serif;
+	font-weight: 800;
+	padding-top: 13px;
+	font-size: 14px;
+	padding-bottom: 13px;
+	border-radius: 3px;
+}
+.login--form__signupButton {
+	margin-top: 5px;
+	background-color: #00854a;
+	width: 311.5px;
+	border: none;
+	color: #ffff;
+	font-family: "Nunito", sans-serif;
+	font-weight: 800;
+	padding-top: 13px;
+	font-size: 14px;
+	padding-bottom: 13px;
+	border-radius: 3px;
+	display: none;
+}
+.login--form__hrDiv {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin-top: 25px;
+}
+.hrSetting__left {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-right: 28px;
+	/* margin-left: 59px; */
+}
+.hrSetting__right {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-left: 28px;
+	/* margin-right: 59px; */
+}
+hr {
+	border: 0.4px solid #2b2c43;
+	width: 65px;
+	opacity: 0.3;
+}
+.login--form__text {
+	color: #2b2c43;
+	opacity: 0.6;
+	font-family: "Noto Sans", sans-serif;
+	font-size: 13px;
+}
+.login--form__3rdParty {
+	display: flex;
+	justify-content: center;
+	margin-top: 14px;
+}
+
+.login--form__google,
+.login--form__fb {
+	background-color: hsl(0, 0%, 96%);
+	/* hsl(0, 0%, 96%); */
+	width: 140px;
+	height: 51px;
+	display: flex;
+	border-radius: 5px;
+	justify-content: center;
+	align-items: center;
+}
+.login--form__google {
+	margin-right: 15px;
+}

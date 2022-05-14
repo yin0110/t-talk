@@ -1,20 +1,15 @@
-from wsgiref.util import request_uri
-from flask import Flask, render_template
+from flask import *
 from flask_socketio import SocketIO, emit, join_room, leave_room, send, Namespace
-from numpy import broadcast
-from sqlalchemy import true, values
 from namespace import user_namespace
 from room import contact_room
 from datetime import datetime, date
+from index_page_Handle import index_handler
+from member_chatroom_info import chatroom_info
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
-
-
-# now = datetime.now()
-# day = date.today()
-# current_time = now.strftime("%H:%M")
-# today = day.strftime("%m/%d (%a)")
+app.register_blueprint(index_handler)
+app.register_blueprint(chatroom_info)
 
 
 def handle_time():
@@ -23,23 +18,28 @@ def handle_time():
     return current_time
 
 
-@app.route("/")
+@ app.route("/")
 def index():
+    return render_template("login.html")
+
+
+@ app.route("/chatroom")
+def chat_room():
     return render_template("chatroom.html")
 
 
-@socketio.on('message')
+@ socketio.on('message')
 def handle_message(data):
     socketio.emit("send", 'received message: ' + data)
 
 
-@socketio.on('my-event', namespace='/test')
+@ socketio.on('my-event', namespace='/test')
 def handle_my_custom_namespace_event(json):
     print('received json: ' + str(json))
     emit("my_response", "123")
 
 
-@socketio.on('join')
+@ socketio.on('join')
 def on_join(data):
     # username = data['username']
     room = data["room"]
@@ -48,7 +48,7 @@ def on_join(data):
     emit("room-message", "abc", to=room)
 
 
-@socketio.on("join_room")
+@ socketio.on("join_room")
 def show_room(data):
     room = room(data["username"], data["settingname"], None)
     room.add_message(data["message"])
@@ -56,13 +56,27 @@ def show_room(data):
 
 # set up namespace
 user_namespace.__init__("eee", "yin", "myimg", "/user")
-print(user_namespace.endpoint)
-user_namespace.add_room(contact_room(0, "username", "userimg", "user"))
+# print(user_namespace.endpoint)
+user_namespace.add_room(contact_room(
+    0, "Yin Chuang", "/static/img/barysan.png", "user"))
 print(user_namespace)
+print(user_namespace.rooms[0].room_title)
+# def __init__(self, room_id, room_title, room_img, namespace, private_room=False):
 
 
-@socketio.on('message', namespace=user_namespace.endpoint)
-def handle_my_custom_namespace_event(message):
+@ socketio.on('connection', namespace=user_namespace.endpoint)
+def build_friend_room():
+    room_title = user_namespace.rooms[0].room_title
+    room_img = user_namespace.rooms[0].room_img
+    room_namespace = user_namespace.rooms[0].namespace
+    room_history = []
+    rooms_info = [room_title, room_img,
+                  room_namespace, room_history]
+    emit("build_rooms", rooms_info)
+
+
+@ socketio.on("message", namespace=user_namespace.endpoint)
+def handle_message(message):
     if message == "empty":
         pass
     else:
@@ -72,6 +86,19 @@ def handle_my_custom_namespace_event(message):
         current_time = handle_time()
         user_info_for_room = [message, current_time]
     emit("room-message", user_info_for_room, to=chat_room)
+
+
+@ socketio.on("get_friend_info", namespace=user_namespace.endpoint)
+def send_friend_info(room_title):
+    # 查資料庫
+    # print(room_title)
+    chatroom_data = {
+        "friend_name": "Yin Chuang",
+        "friend_img": user_namespace.rooms[0].room_img,
+        "history": "none"
+
+    }
+    emit("chatroom_info", chatroom_data)
 
 
 if __name__ == '__main__':

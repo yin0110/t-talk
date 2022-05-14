@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>t-talk</title>
+		<link
+			rel="stylesheet"
+			href="{{url_for('static', filename='/css/login.css')}}"
+		/>
+		<!-- <link rel="stylesheet" href="../static/css/login.css" /> -->
+	</head>
+	<body>
+		<div class="outer">
+			<div class="login">
+				<div class="login--welcomeDiv">
+					<div class="login--title">T-Talk</div>
+					<div class="login--welcome">Welcome Back</div>
+					<div class="login--welcomeDetail">
+						Welcome back! Please enter your details
+					</div>
+				</div>
+				<form class="login--form" action="">
+					<label class="login--form__name" for="">Name</label>
+					<input
+						class="login--form__nameInput"
+						type="text"
+						placeholder="Enter your name"
+					/>
+					<label class="login--form__email" for="">Email</label>
+					<input
+						class="login--form__emailInput"
+						type="text"
+						placeholder="Enter your email"
+					/>
+					<label class="login--form__password" for="">Password</label>
+					<input
+						class="login--form__passwordInput"
+						type="password"
+						placeholder="******"
+					/>
+					<div class="login--form__passwordSetting">
+						<div type="checkbox" class="form__passwordSetting__remember">
+							Remember for 30 days
+						</div>
+						<div class="form__passwordSetting__forget">Forget Password</div>
+					</div>
+					<div class="login--form__register">Register</div>
+					<div class="login--form__login">Login</div>
+					<button class="login--form__loginButton" type="submit">
+						Login Now
+					</button>
+					<!-- <button class="login--form__signupButton" type="submit">
+						Sign Up Now
+					</button> -->
+				</form>
+				<div class="login--form__hrDiv">
+					<div class="hrSetting__left">
+						<hr class="login--form__hr" />
+					</div>
+					<p class="login--form__text">or login with</p>
+					<div class="hrSetting__right">
+						<hr class="login--form__hr" />
+					</div>
+				</div>
+				<div class="login--form__3rdParty">
+					<div class="login--form__google">
+						<p class="login--form__googleText">Google</p>
+						<img class="login--form__googleImg" src="" alt="" />
+					</div>
+					<div class="login--form__fb">
+						<p class="login--form__fbText">FaceBook</p>
+						<img class="login--form__fbImg" src="" alt="" />
+					</div>
+				</div>
+			</div>
+			<div class="pictureBoard"></div>
+		</div>
+	</body>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+		integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+		crossorigin="anonymous"
+	></script>
+	<script src="{{url_for('static', filename='/js/login.js')}}"></script>
+	<!-- <script src="../static/js/login.js"></script> -->
+</html>

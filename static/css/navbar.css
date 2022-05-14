@@ -16,7 +16,7 @@ body {
 
 .nav--functionbar {
 	background-color: #16a364;
-	width: 60px;
+	width: 69px;
 	height: 100vw;
 	display: flex;
 	flex-direction: column;
@@ -27,7 +27,7 @@ body {
 	margin-top: 160px;
 	height: 36.54px;
 	width: 36.54px;
-	margin-left: 5px;
+	/* margin-left: 5px; */
 	display: flex;
 	align-items: center;
 	justify-content: center;

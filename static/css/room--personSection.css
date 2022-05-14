@@ -1,7 +1,7 @@
 .room--personSection {
 	display: flex;
 	flex-direction: column;
-	width: 335px;
+	width: 385px;
 }
 .room--personSection__title {
 	font-size: 24px;
@@ -12,7 +12,7 @@
 	flex-direction: row;
 }
 .room--personSection__subTitle {
-	margin-left: 170px;
+	margin-left: 210px;
 	margin-top: 10px;
 	color: rgba(0, 0, 0, 0.7);
 	font-weight: 400;
@@ -21,11 +21,27 @@
 .room--personSection__search {
 	position: relative;
 	margin-top: 25px;
+	margin-bottom: 35px;
 }
-.personSection__search__input {
+.room--personSection__addFriend {
+	font-size: 13px;
+	color: rgba(0, 0, 0, 0.7);
+	margin-left: 22px;
+	margin-top: 20px;
+	font-weight: 500;
+	display: none;
+}
+.room--personSection__searchFriend {
+	position: relative;
+	margin-top: 10px;
+	margin-bottom: 35px;
+	display: none;
+}
+.personSection__search__input,
+.personSection__search__inputFriend {
 	margin-left: 20px;
 	background-color: #f6f6f9;
-	width: 295px;
+	width: 335px;
 	height: 50px;
 	border-radius: 5px;
 	border: none;
@@ -37,6 +53,39 @@
 	color: #00854a;
 	opacity: 0.7;
 }
+.personSection__search__inputFriend::placeholder {
+	color: #00854a;
+	opacity: 0.7;
+}
+/* add person and build email friend box css */
+
+.room--personSection__email {
+	display: flex;
+	margin-left: 20px;
+}
+.room--personSection__emailImg {
+	width: 42px;
+	height: 42px;
+	border-radius: 100px;
+	color: aqua;
+}
+.room--personSection__emailName {
+	margin-top: 10px;
+	margin-left: 16px;
+	font-size: 14px;
+	font-weight: 600;
+	/* background-color: #00854a; */
+	width: 250px;
+}
+.room--personSection__emailAdd {
+	margin-top: 8px;
+	width: 22.89px;
+	height: 22.27px;
+	/* margin-left: 15px; */
+	opacity: 0.6;
+	filter: alpha(opacity=60);
+	cursor: pointer;
+}
 .personSection__search__icon {
 	width: 16.89px;
 	height: 17.27px;
@@ -44,11 +93,19 @@
 	left: 33px;
 	top: 16px;
 }
+.personSection__searchFriend__icon {
+	width: 16.89px;
+	height: 17.27px;
+	position: absolute;
+	left: 33px;
+	top: 16px;
+	cursor: pointer;
+}
 .room--personSection__chatInfo {
 	display: flex;
 	flex-direction: row;
-	margin-top: 35px;
-	width: 335px;
+	/* margin-top: 35px; */
+	width: 350px;
 	height: 75px;
 	position: relative;
 	cursor: pointer;
@@ -70,6 +127,8 @@
 	margin-left: 16px;
 	font-size: 14px;
 	font-weight: 700;
+	width: 300px;
+	/* background-color: goldenrod; */
 }
 
 .personSection__chatInfo__latestMessage {
@@ -81,7 +140,7 @@
 	color: rgba(0, 0, 0, 0.7);
 }
 .personSection__chatInfo__messageTime {
-	margin-left: 130px;
+	/* margin-left: 130px; */
 	margin-top: 28px;
 	font-size: 12px;
 	color: #989fc9;
