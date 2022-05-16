@@ -18,6 +18,10 @@ function addFriend() {
 	searchFriendTitle.style.display = "block";
 	searchFriend.style.display = "block";
 	chatFriends.style.display = "none";
+	let searchFriendBoxOuter = document.querySelector(
+		".room--personSection__emailOuter"
+	);
+	searchFriendBoxOuter.innerHTML = "";
 }
 
 //personSection search friends function

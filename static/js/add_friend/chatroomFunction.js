@@ -1,16 +1,34 @@
+let searchFriendBoxOuter = document.querySelector(
+	".room--personSection__emailOuter"
+);
+
 //friendAddIconBox click event, add friend in db
-async function addFriendInDB(statusCode) {
+async function addFriendInDB(statusCode, searchFriendBox) {
 	let friendNamespace = statusCode["data"]["user_namespace"];
 	let userNamespace = localStorage.getItem("userNS");
+	let url = `/api/usr_namespace`;
+	let accessMethod = "POST";
+	let fetchInfo = await fetch(url, {
+		headers: { "Content-Type": "application/json" },
+		method: accessMethod,
+		body: JSON.stringify({ user1: userNamespace, user2: friendNamespace }),
+	});
+	let response = await fetchInfo.json();
+	if (response["ok"]) {
+		searchFriendBox.innerHTML = "Finish  Adding";
+	} else {
+		console.log("error");
+	}
 }
 
 //searched friend and build friend info
 function buildSearchEmailContent(statusCode) {
 	let friendImg = statusCode["data"]["img"];
 	let friendName = statusCode["data"]["name"];
-	let searchFriendBoxOuter = document.querySelector(
-		".room--personSection__emailOuter"
-	);
+	// let searchFriendBoxOuter = document.querySelector(
+	// 	".room--personSection__emailOuter"
+	// );
+	searchFriendBoxOuter.style.display = "block";
 	searchFriendBoxOuter.innerHTML = "";
 	let searchFriendBox = document.createElement("div");
 	searchFriendBox.className = "room--personSection__email";
@@ -28,15 +46,13 @@ function buildSearchEmailContent(statusCode) {
 	searchFriendBox.appendChild(friendNameBox);
 	searchFriendBox.appendChild(friendAddIconBox);
 	friendAddIconBox.addEventListener("click", function () {
-		addFriendInDB(statusCode);
+		addFriendInDB(statusCode, searchFriendBox);
 	});
 }
 
 //cannot find friend
 function buildUserUnknow() {
-	let searchFriendBoxOuter = document.querySelector(
-		".room--personSection__emailOuter"
-	);
+	searchFriendBoxOuter.style.display = "block";
 	searchFriendBoxOuter.innerHTML = "";
 	let searchFriendBox = document.createElement("div");
 	searchFriendBox.className = "room--personSection__email";

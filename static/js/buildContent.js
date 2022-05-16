@@ -33,6 +33,29 @@ function buildUserInfo(username, userImg) {
 }
 
 //for building chattingroom mesaage
+// function buildMessageBox(messageInfo) {
+// 	let chatRoomSpace = document.querySelector(".chattingRoom--content");
+// 	let userInfo = document.createElement("div");
+// 	userInfo.className = "chattingRoom--content__user";
+// 	chatRoomSpace.appendChild(userInfo);
+// 	let userImg = document.createElement("img");
+// 	userInfo.appendChild(userImg);
+// 	userImg.className = "chattingRoom--content__userImg";
+// 	let messageBox = document.createElement("div");
+// 	messageBox.className = "chattingRoom--content__textBox";
+// 	userInfo.appendChild(messageBox);
+// 	let message = document.createElement("p");
+// 	message.className = "content__textBox__texting";
+// 	message.innerHTML = messageInfo[0];
+// 	messageBox.appendChild(message);
+// 	let currentTime = document.createElement("div");
+// 	currentTime.className = "chattingRoom--content__messageTime";
+// 	userInfo.appendChild(currentTime);
+// 	currentTime.innerHTML = messageInfo[1];
+// 	userInfo.scrollIntoView();
+// 	chatRoomSpace.scroll({ top: userInfo.offsetTop, behavior: "smooth" });
+// }
+
 function buildMessageBox(messageInfo) {
 	let chatRoomSpace = document.querySelector(".chattingRoom--content");
 	let userInfo = document.createElement("div");
@@ -46,15 +69,37 @@ function buildMessageBox(messageInfo) {
 	userInfo.appendChild(messageBox);
 	let message = document.createElement("p");
 	message.className = "content__textBox__texting";
-	message.innerHTML = messageInfo[0];
+	message.innerHTML = messageInfo["message"];
 	messageBox.appendChild(message);
 	let currentTime = document.createElement("div");
 	currentTime.className = "chattingRoom--content__messageTime";
 	userInfo.appendChild(currentTime);
-	currentTime.innerHTML = messageInfo[1];
-	userInfo.scrollIntoView();
+	currentTime.innerHTML = messageInfo["time"];
 	chatRoomSpace.scroll({ top: userInfo.offsetTop, behavior: "smooth" });
 }
+
+// function buildFriendMessageBox(messageInfo) {
+// 	let chatRoomSpace = document.querySelector(".chattingRoom--content");
+// 	let userInfo = document.createElement("div");
+// 	userInfo.className = "chattingRoom--content__person";
+// 	chatRoomSpace.appendChild(userInfo);
+// 	let userImg = document.createElement("img");
+// 	userInfo.appendChild(userImg);
+// 	userImg.className = "chattingRoom--content__personImg";
+// 	let messageBox = document.createElement("div");
+// 	messageBox.className = "chattingRoom--content__personTextBox";
+// 	userInfo.appendChild(messageBox);
+// 	let message = document.createElement("p");
+// 	message.className = "content__textBox__personTexting";
+// 	message.innerHTML = messageInfo[0];
+// 	messageBox.appendChild(message);
+// 	let currentTime = document.createElement("div");
+// 	currentTime.className = "chattingRoom--content__personMessageTime";
+// 	userInfo.appendChild(currentTime);
+// 	currentTime.innerHTML = messageInfo[1];
+// 	//自動移動到訊息位置
+// 	chatRoomSpace.scroll({ top: userInfo.offsetTop, behavior: "smooth" });
+// }
 
 function buildFriendMessageBox(messageInfo) {
 	let chatRoomSpace = document.querySelector(".chattingRoom--content");
@@ -69,12 +114,12 @@ function buildFriendMessageBox(messageInfo) {
 	userInfo.appendChild(messageBox);
 	let message = document.createElement("p");
 	message.className = "content__textBox__personTexting";
-	message.innerHTML = messageInfo[0];
+	message.innerHTML = messageInfo["message"];
 	messageBox.appendChild(message);
 	let currentTime = document.createElement("div");
 	currentTime.className = "chattingRoom--content__personMessageTime";
 	userInfo.appendChild(currentTime);
-	currentTime.innerHTML = messageInfo[1];
+	currentTime.innerHTML = messageInfo["time"];
 	//自動移動到訊息位置
 	chatRoomSpace.scroll({ top: userInfo.offsetTop, behavior: "smooth" });
 }

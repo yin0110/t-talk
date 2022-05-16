@@ -67,7 +67,6 @@ async function signUpOrRegister(e) {
 		if (statusCode["message"]) {
 		} else {
 			location.href = `/chatroom`;
-			// localStorage.setItem("customerNamespace", userEmail);
 		}
 	} else {
 		let userEmail = emailInput.value;
