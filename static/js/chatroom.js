@@ -14,6 +14,8 @@ async function get_user_info() {
 		userImg = statusCode["data"]["img"];
 		userNamespace = statusCode["data"]["user_namespace"];
 		localStorage.setItem("userNS", userNamespace);
+		localStorage.setItem("userName", username);
+		localStorage.setItem("userImg", userImg);
 		buildUserInfo(username, userImg);
 	}
 }

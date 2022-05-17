@@ -32,30 +32,6 @@ function buildUserInfo(username, userImg) {
 	divUserImg.src = userImg;
 }
 
-//for building chattingroom mesaage
-// function buildMessageBox(messageInfo) {
-// 	let chatRoomSpace = document.querySelector(".chattingRoom--content");
-// 	let userInfo = document.createElement("div");
-// 	userInfo.className = "chattingRoom--content__user";
-// 	chatRoomSpace.appendChild(userInfo);
-// 	let userImg = document.createElement("img");
-// 	userInfo.appendChild(userImg);
-// 	userImg.className = "chattingRoom--content__userImg";
-// 	let messageBox = document.createElement("div");
-// 	messageBox.className = "chattingRoom--content__textBox";
-// 	userInfo.appendChild(messageBox);
-// 	let message = document.createElement("p");
-// 	message.className = "content__textBox__texting";
-// 	message.innerHTML = messageInfo[0];
-// 	messageBox.appendChild(message);
-// 	let currentTime = document.createElement("div");
-// 	currentTime.className = "chattingRoom--content__messageTime";
-// 	userInfo.appendChild(currentTime);
-// 	currentTime.innerHTML = messageInfo[1];
-// 	userInfo.scrollIntoView();
-// 	chatRoomSpace.scroll({ top: userInfo.offsetTop, behavior: "smooth" });
-// }
-
 function buildMessageBox(messageInfo) {
 	let chatRoomSpace = document.querySelector(".chattingRoom--content");
 	let userInfo = document.createElement("div");
@@ -63,6 +39,7 @@ function buildMessageBox(messageInfo) {
 	chatRoomSpace.appendChild(userInfo);
 	let userImg = document.createElement("img");
 	userInfo.appendChild(userImg);
+	userImg.src = messageInfo["user_Img"];
 	userImg.className = "chattingRoom--content__userImg";
 	let messageBox = document.createElement("div");
 	messageBox.className = "chattingRoom--content__textBox";
@@ -109,6 +86,7 @@ function buildFriendMessageBox(messageInfo) {
 	let userImg = document.createElement("img");
 	userInfo.appendChild(userImg);
 	userImg.className = "chattingRoom--content__personImg";
+	userImg.src = messageInfo["img"];
 	let messageBox = document.createElement("div");
 	messageBox.className = "chattingRoom--content__personTextBox";
 	userInfo.appendChild(messageBox);

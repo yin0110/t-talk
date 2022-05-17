@@ -99,30 +99,31 @@ def show_friend():
     try:
         user_1 = request.args.get("namespace")
         user_2 = request.args.get("namespace")
+        user_name = request.args.get("username")
         cnx = pool.get_connection()
         cur = cnx.cursor(dictionary=True)
         cur.execute(
-            "SELECT room_id ,user_2, user_1 FROM member_friend WHERE user_1 = %s OR user_2 = %s", (user_1, user_2))
-        info = cur.fetchone()
-        if info["user_1"] == user_1:
-            friend_namespace = info["user_2"]
-            cur.execute(
-                "SELECT user_namespace, img, name FROM member_info WHERE user_namespace = %s", (friend_namespace,))
-            friend_info = cur.fetchone()
-            full_info = {"friend": friend_info,
-                         "room": info["room_id"], "chat_namespace": user_1}
-            data = jsonify({"data": full_info})
-            return data, 200
-        else:
-            friend_namespace = info["user_1"]
-            cur.execute(
-                "SELECT user_namespace, img, name FROM member_info WHERE user_namespace = %s", (friend_namespace,))
-            friend_info = cur.fetchone()
-            chatroom_NS = friend_info["user_namespace"]
-            full_info = {"friend": friend_info,
-                         "room": info["room_id"], "chat_namespace": chatroom_NS}
-            data = jsonify({"data": full_info})
-            return data, 200
+            "SELECT room_id ,user_2, user_1, img, name FROM member_info JOIN member_friend ON user_namespace=user_2 OR user_namespace=user_1 WHERE NOT name=%s AND (user_2 = %s OR user_1 = %s)", (user_name, user_2, user_1))
+        info = cur.fetchall()
+        # if info["user_1"] == user_1:
+        #     friend_namespace = info["user_2"]
+        #     cur.execute(
+        #         "SELECT user_namespace, img, name FROM member_info WHERE user_namespace = %s", (friend_namespace,))
+        #     friend_info = cur.fetchone()
+        #     full_info = {"friend": friend_info,
+        #                  "room": info["room_id"], "chat_namespace": user_1}
+        #     data = jsonify({"data": full_info})
+        #     return data, 200
+        # else:
+        #     friend_namespace = info["user_1"]
+        #     cur.execute(
+        #         "SELECT user_namespace, img, name FROM member_info WHERE user_namespace = %s", (friend_namespace,))
+        #     friend_info = cur.fetchone()
+        #     chatroom_NS = friend_info["user_namespace"]
+        #     full_info = {"friend": friend_info,
+        #                  "room": info["room_id"], "chat_namespace": chatroom_NS}
+        data = jsonify({"data": info})
+        return data, 200
     except:
         data = jsonify({"error": True,
                         "message": "內部問題"
