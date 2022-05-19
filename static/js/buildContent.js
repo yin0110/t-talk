@@ -25,10 +25,12 @@ function buildChatFriend(roomsInfo) {
 }
 
 //for building chattingroom userinfo
-function buildUserInfo(username, userImg) {
+function buildUserInfo(username, userImg, userNamespace) {
 	let divUserName = document.querySelector(".chattingRoom--user__name");
+	divUserName.setAttribute("id", username);
 	divUserName.innerHTML = username;
 	let divUserImg = document.querySelector(".chattingRoom--user__img");
+	divUserImg.setAttribute("id", userNamespace);
 	divUserImg.src = userImg;
 }
 

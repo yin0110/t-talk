@@ -1,12 +1,14 @@
-from tkinter.font import names
-from unicodedata import name
 from flask import *
 from flask_socketio import SocketIO, emit, join_room, leave_room, send, Namespace
-from namespace import user_namespace
+# from namespace import user_namespace
 # from room import contact_room
 from datetime import datetime, date
+
+from numpy import broadcast
+from sqlalchemy import true
 from index_page_Handle import index_handler
 from member_chatroom_info import chatroom_info
+from database import pool
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
@@ -28,33 +30,6 @@ def index():
 @ app.route("/chatroom")
 def chat_room():
     return render_template("chatroom.html")
-
-
-# @ socketio.on('message')
-# def handle_message(data):
-#     socketio.emit("send", 'received message: ' + data)
-
-
-@ socketio.on('my-event', namespace='/test')
-def handle_my_custom_namespace_event(json):
-    print('received json: ' + str(json))
-    emit("my_response", "123")
-
-
-# @ socketio.on('join')
-# def on_join(data):
-#     # username = data['username']
-#     room = data["room"]
-#     print(data)
-
-#     join_room(room)
-#     emit("room-message", "abc", to=room)
-
-
-@ socketio.on("join_room")
-def show_room(data):
-    room = room(data["username"], data["settingname"], None)
-    room.add_message(data["message"])
 
 
 # set up namespace
@@ -83,58 +58,83 @@ def handle_chat_NS(room_info):
     global chat_room_id
     chat_room_id = room_info["roomID"]
     room_friend_img = room_info["roomFriendImg"]
-    room_user_img = room_info["roomUserImg"]
+    room_friend_name = room_info["roomFriendName"]
+    cnx = pool.get_connection()
+    cur = cnx.cursor(dictionary=True)
+    cur.execute(
+        "SELECT user_2, user_1, img, user_namespace FROM member_info JOIN member_friend ON user_namespace=user_2 OR user_namespace=user_1 WHERE NOT name=%s AND room_id=%s",
+        (room_friend_name, chat_room_id))
+    info = cur.fetchone()
+    room_user_img = info["img"]
+    cur.close()
+    cnx.close()
 
     @socketio.on("message", namespace="/talk")
     def send_back_data(message):
         if message == "empty":
             pass
         else:
-            typing_user = message["user"]
+            typing_user = info["user_namespace"]
             message_content = message["message"]
             current_time = handle_time()
             join_room(chat_room_id)
+            handle_history(typing_user, current_time,
+                           message_content, chat_room_id)
             user_info_for_room = {"message": message_content,
                                   "time": current_time, "typing_user": typing_user, "img": room_friend_img, "user_Img": room_user_img}
             emit("full_message", user_info_for_room, to=chat_room_id)
 
 
-# @socketio.on("message", namespace=chat_room_ns)
-# def handle_message(message):
-#     if message == "empty":
-#         pass
-#     else:
-#         typing_user = message["user"]
-#         message_content = message["message"]
-#         current_time = handle_time()
-#         join_room(1)
-#         emit("room-message", "ooo",
-#              to=1)
+@socketio.on("draw", namespace="/talk")
+def handle_draw(draw_info):
+    emit("showDrawData", draw_info, broadcast=True)
 
 
-# @socketio.on("messagevvvv", namespace="/ooo")
-# def handle_message(message):
-#     if message == "empty":
-#         pass
-#     else:
-#         chat_room = "kkk"
-#         # join_room(chat_room)
-#         # current_time = handle_time()
-#         # user_info_for_room = [message, current_time]
-#     emit("room-message", "iii", to=chat_room)
+@socketio.on("erase", namespace="/talk")
+def handle_draw(erase_info):
+    emit("eraseDrawData", erase_info, broadcast=True)
 
 
-@ socketio.on("get_friend_info", namespace=user_namespace.endpoint)
-def send_friend_info(room_title):
-    # 查資料庫
-    # print(room_title)
-    chatroom_data = {
-        "friend_name": "Yin Chuang",
-        "friend_img": user_namespace.rooms[0].room_img,
-        "history": "none"
+@socketio.on("clearDraw", namespace="/talk")
+def handle_draw(erase_info):
+    emit("clearDrawData", "ok", broadcast=True)
 
-    }
-    emit("chatroom_info", chatroom_data)
+
+def handle_history(typing_user, current_time, message_content, chat_room_id):
+    try:
+        cnx = pool.get_connection()
+        cur = cnx.cursor(dictionary=True)
+        cur.execute("INSERT INTO member_history(room_id_history, user, user_time, user_history) VALUES (%s, %s, %s, %s)",
+                    (chat_room_id, typing_user, current_time, message_content))
+        cnx.commit()
+        data = jsonify({"ok": True})
+        return data, 200
+    except:
+        data = jsonify({"error": True,
+                        "message": "內部問題"
+                        })
+        return data, 500
+    finally:
+        cur.close()
+        cnx.close()
+
+
+def load_history(chat_room_id):
+    try:
+        cnx = pool.get_connection()
+        cur = cnx.cursor(dictionary=True)
+        cur.execute("SELECT user, user_time, user_history FROM member_history WHERE room_id_history=%s)",
+                    (chat_room_id,))
+        data = jsonify({"ok": True})
+        return data, 200
+    except:
+        data = jsonify({"error": True,
+                        "message": "內部問題"
+                        })
+        return data, 500
+    finally:
+        cur.close()
+        cnx.close()
 
 
 if __name__ == '__main__':

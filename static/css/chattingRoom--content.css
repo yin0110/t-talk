@@ -1,5 +1,5 @@
 .chattingRoom--content {
-	height: 352px;
+	height: 428px;
 	overflow: auto;
 }
 .chattingRoom--content__user {
@@ -143,7 +143,7 @@
 }
 .messageBar__texting__input {
 	background-color: #f6f6f9;
-	width: 628px;
+	width: 688px;
 	height: 40px;
 	border: none;
 	border-radius: 23px;
@@ -176,7 +176,7 @@
 	height: 28px;
 	border-radius: 100px;
 	position: absolute;
-	top: 22px;
+	top: 20px;
 	right: 10px;
 	cursor: pointer;
 }

@@ -47,7 +47,7 @@ function buildChatFriendList(friendInfo) {
 function buildChatRoom(e) {
 	let chatroomContnet = document.querySelector(".chattingRoom--content");
 	chatroomContnet.innerHTML = "";
-	let roomTitle = e.currentTarget.childNodes[1].textContent;
+	let roomFriendName = e.currentTarget.childNodes[1].textContent;
 	let roomImg = e.currentTarget.childNodes[0].src;
 	let roomID = e.currentTarget.id;
 	let chatFriendImg = document.querySelector(".chattingRoom--chatPerson__img");
@@ -55,13 +55,16 @@ function buildChatRoom(e) {
 	let chatFriendName = document.querySelector(
 		".chattingRoom--chatPerson__name"
 	);
-	chatFriendName.innerHTML = roomTitle;
-	let userImg = localStorage.getItem("userImg");
+	chatFriendName.innerHTML = roomFriendName;
+	let userImgDiv = document.querySelector(".chattingRoom--user__img");
+	let userImg = userImgDiv.src;
 
 	socket.emit("connect_to_ns", {
 		roomID: roomID,
 		roomFriendImg: roomImg,
 		roomUserImg: userImg,
+		roomFriendName: roomFriendName,
+
 		// user: userNamespace,
 	});
 }

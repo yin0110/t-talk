@@ -5,9 +5,11 @@
 
 .chattingRoom--user__info {
 	margin-top: 20px;
-	margin-left: 605px;
+	width: 825px;
+	/* margin-left: 605px; */
 	display: flex;
 	flex-direction: row;
+	justify-content: flex-end;
 }
 
 .chattingRoom--user__img {
@@ -21,6 +23,7 @@
 	width: 9px;
 	height: 5px;
 	margin-left: 12px;
+	margin-right: 54px;
 }
 
 .chattingRoom--user__name {
@@ -66,7 +69,9 @@
 
 .chatPerson__toolIcon__paint {
 	position: relative;
+	cursor: pointer;
 }
+
 .toolIcon__whiteBorder {
 	top: 10px;
 	z-index: 1;

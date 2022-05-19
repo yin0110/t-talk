@@ -7,7 +7,7 @@
 body {
 	/* overflow: hidden; */
 	overflow-x: hidden;
-	/* overflow-y: hidden; */
+	overflow-y: hidden;
 }
 .wholeSection {
 	display: flex;

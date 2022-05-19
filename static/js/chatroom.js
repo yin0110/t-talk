@@ -13,10 +13,11 @@ async function get_user_info() {
 		username = statusCode["data"]["name"];
 		userImg = statusCode["data"]["img"];
 		userNamespace = statusCode["data"]["user_namespace"];
+		console.log(userNamespace);
 		localStorage.setItem("userNS", userNamespace);
 		localStorage.setItem("userName", username);
 		localStorage.setItem("userImg", userImg);
-		buildUserInfo(username, userImg);
+		buildUserInfo(username, userImg, userNamespace);
 	}
 }
 get_user_info();

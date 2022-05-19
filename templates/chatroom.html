@@ -21,6 +21,10 @@
 			rel="stylesheet"
 			href="{{url_for('static', filename='/css/chattingRoom--content.css')}}"
 		/>
+		<link
+			rel="stylesheet"
+			href="{{url_for('static', filename='/css/painting.css')}}"
+		/>
 	</head>
 	<body>
 		<script
@@ -162,6 +166,68 @@
 				<div class=".chattingRoom--div__hr">
 					<hr class="chattingRoom--hr" />
 				</div>
+				<div class="chattingRoom--content__painting">
+					<div class="content__painting__tool">
+						<div class="content__painting__color">
+							<button class="button_1" type="button" value="#000000"></button>
+							<button class="button_2" type="button" value="#5F6368"></button>
+							<button class="button_3" type="button" value="#9AA0A6"></button>
+							<button class="button_4" type="button" value="#DADCE0"></button>
+							<button class="button_5" type="button" value="#F1F3F4"></button>
+							<button class="button_6" type="button" value="#FFFFFF"></button>
+							<button class="button_7" type="button" value="#F28B82"></button>
+							<button class="button_8" type="button" value="#FDD663"></button>
+							<button class="button_9" type="button" value="#81C995"></button>
+							<button class="button_10" type="button" value="#78D9EC"></button>
+							<button class="button_11" type="button" value="#8AB4F8"></button>
+							<button class="button_12" type="button" value="#C58AF9"></button>
+							<button class="button_13" type="button" value="#EA4336"></button>
+							<button class="button_14" type="button" value="#FBBC04"></button>
+							<button class="button_15" type="button" value="#34A853"></button>
+							<button class="button_16" type="button" value="#24C1E0"></button>
+							<button class="button_17" type="button" value="#4285F4"></button>
+							<button class="button_18" type="button" value="#A142F4"></button>
+							<button class="button_19" type="button" value="#C52220"></button>
+							<button class="button_20" type="button" value="#F29900"></button>
+							<button class="button_21" type="button" value="#188038"></button>
+							<button class="button_22" type="button" value="#12A4AF"></button>
+							<button class="button_23" type="button" value="#1967D2"></button>
+							<button class="button_24" type="button" value="#8430CE"></button>
+						</div>
+						<div class="brushes__box">
+							<div class="brushes__box__color"></div>
+							<div class="brushes__box__pencil">
+								<img
+									class="brushes__box__pencilImg"
+									src="/static/img/pencil.png"
+									alt=""
+								/>
+							</div>
+							<div class="brushes__box__eraser">
+								<img
+									class="brushes__box__eraserImg"
+									src="/static/img/eraser.png"
+									alt=""
+								/>
+							</div>
+							<div class="brushes__box__clear">
+								<img
+									class="brushes__box__clearImg"
+									src="/static/img/clear.png"
+									alt=""
+								/>
+							</div>
+							<div class="brushes__box__line">
+								<img
+									class="brushes__box__lineImg"
+									src="/static/img/line.png"
+									alt=""
+								/>
+							</div>
+						</div>
+					</div>
+					<canvas id="paint-canvas" width="800px" height="360px"></canvas>
+				</div>
 				<div class="chattingRoom--content">
 					<!-- <div class="chattingRoom--content__user">
 						<img class="chattingRoom--content__userImg" src="" alt="" />
@@ -238,5 +304,6 @@
 	<script src="{{url_for('static', filename='/js/chatroomSendMessage.js')}}"></script>
 	<script src="{{url_for('static', filename='/js/chatListFunction.js')}}"></script>
 	<script src="{{url_for('static', filename='/js/chatList.js')}}"></script>
+	<script src="{{url_for('static', filename='/js/painting.js')}}"></script>
 	<script src="{{url_for('static', filename='/js/socket.js')}}"></script>
 </html>
