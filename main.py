@@ -55,7 +55,6 @@ def chat_room():
 
 @socketio.on("connect_to_ns")
 def handle_chat_NS(room_info):
-    global chat_room_id
     chat_room_id = room_info["roomID"]
     room_friend_img = room_info["roomFriendImg"]
     room_friend_name = room_info["roomFriendName"]

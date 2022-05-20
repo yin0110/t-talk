@@ -82,8 +82,6 @@ async function signUpOrRegister(e) {
 		});
 		let statusCode = await fetchInfo.json();
 		if (statusCode["data"]) {
-			let userId = statusCode["data"]["id"];
-			localStorage.setItem("userId", userId);
 			location.href = `/chatroom`;
 		} else {
 			console.log("error");

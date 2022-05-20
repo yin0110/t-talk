@@ -50,6 +50,7 @@ def get_friend_namesapce():
             "SELECT name ,img, user_namespace FROM member_info WHERE user_namespace = %s", (user_namespace_data,))
         info = cur.fetchone()
         if info:
+
             data = jsonify({"data": info})
             return data, 200
         else:
