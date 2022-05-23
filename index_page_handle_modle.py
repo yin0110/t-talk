@@ -70,7 +70,7 @@ class member:
                     "SELECT id, email FROM member_account WHERE email = %s", (email,))
                 info = cur.fetchone()
                 user_id = info["id"]
-                img = "/static/img/barysan.png"
+                img = "/static/img/unknowuser.jpeg"
                 namespace = "/"+email
                 cur.execute("INSERT INTO member_info(name, user_id, img, user_namespace ) VALUES (%s, %s, %s, %s)",
                             (name, user_id, img, namespace))
@@ -94,8 +94,8 @@ def check_token(callback):
     def get_token():
         token = request.cookies.get('user_token')
         if not token:
-            data = jsonify({"error": True, "message": "not login"})
-            return data, 403
+            # data = jsonify({"error": True, "message": "not login"})
+            return render_template("login.html")
         try:
             user_info = jwt.decode(token.encode('UTF-8'),
                                    dbRDS["mysecret"], algorithms="HS256")

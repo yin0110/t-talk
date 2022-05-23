@@ -65,8 +65,12 @@ async function signUpOrRegister(e) {
 		});
 		let statusCode = await fetchInfo.json();
 		if (statusCode["message"]) {
+			welcomeDetail.innerHTML = "Email already existed !";
+			welcomeDetail.style.color = "red";
 		} else {
-			location.href = `/chatroom`;
+			loginAccount();
+			welcomeDetail.innerHTML = "Sign up successfully ! Please login";
+			welcomeDetail.style.color = "#00854a";
 		}
 	} else {
 		let userEmail = emailInput.value;
@@ -84,7 +88,8 @@ async function signUpOrRegister(e) {
 		if (statusCode["data"]) {
 			location.href = `/chatroom`;
 		} else {
-			console.log("error");
+			welcomeDetail.innerHTML = "Email or password is wrong !";
+			welcomeDetail.style.color = "red";
 		}
 	}
 }

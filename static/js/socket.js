@@ -2,7 +2,7 @@
 // let chatNS = localStorage.getItem("chatNS");
 
 let roomTitle = null;
-let socket = io("http://127.0.0.1:3000/");
+// let socket = io("http://0.0.0.1:4000/");
 // let socketChat = io(`/${chatNS}`);
 let socket2 = io("/user");
 

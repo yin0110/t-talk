@@ -3,21 +3,34 @@ let searchFriendBoxOuter = document.querySelector(
 );
 
 //friendAddIconBox click event, add friend in db
-async function addFriendInDB(statusCode, searchFriendBox) {
-	let friendNamespace = statusCode["data"]["user_namespace"];
-	let userNamespace = localStorage.getItem("userNS");
-	let url = `/api/usr_namespace`;
-	let accessMethod = "POST";
+async function addFriendInDB(info, searchFriendBox) {
+	let friendNamespace = info["data"]["user_namespace"];
+	let url = `/api/usr`;
+	let accessMethod = "GET";
 	let fetchInfo = await fetch(url, {
-		headers: { "Content-Type": "application/json" },
 		method: accessMethod,
-		body: JSON.stringify({ user1: userNamespace, user2: friendNamespace }),
 	});
-	let response = await fetchInfo.json();
-	if (response["ok"]) {
-		searchFriendBox.innerHTML = "Finish  Adding";
+	let statusCode = await fetchInfo.json();
+	if (statusCode["message"]) {
+		location.href = `/`;
 	} else {
-		console.log("error");
+		userNamespace = statusCode["data"]["user_namespace"];
+		let url = `/api/usr_namespace`;
+		let accessMethod = "POST";
+		let fetchInfo = await fetch(url, {
+			headers: { "Content-Type": "application/json" },
+			method: accessMethod,
+			body: JSON.stringify({
+				user1: userNamespace,
+				user2: friendNamespace,
+			}),
+		});
+		let response = await fetchInfo.json();
+		if (response["ok"]) {
+			searchFriendBox.innerHTML = "Finish  Adding";
+		} else {
+			console.log("error");
+		}
 	}
 }
 

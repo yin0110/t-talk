@@ -1,6 +1,5 @@
 let socketChat = io("/talk");
 
-// let user = localStorage.getItem("userNS");
 //取得message input 對應div以及設置enter事件
 let input = document.querySelector(".messageBar__texting__input");
 input.addEventListener("keypress", getMessage);
@@ -17,28 +16,47 @@ function click() {
 		return clientMessage;
 	}
 }
-function getMessage(event) {
+async function getMessage(event) {
 	if (event.key === "Enter") {
 		event.preventDefault();
 		result = click();
-		let divUserImg = document.querySelector(".chattingRoom--user__img");
-		let user = divUserImg.getAttribute("id");
-		socketChat.emit("message", {
-			message: result,
-			user: user,
+		let url = `/api/usr`;
+		let accessMethod = "GET";
+		let fetchInfo = await fetch(url, {
+			method: accessMethod,
 		});
+		let statusCode = await fetchInfo.json();
+		if (statusCode["message"]) {
+			location.href = `/`;
+		} else {
+			userNamespace = statusCode["data"]["user_namespace"];
+			let charFriend = document.querySelector(
+				".chattingRoom--chatPerson__name"
+			);
+			let roomID = charFriend.id;
+			socketChat.emit("message", {
+				message: result,
+				roomID: roomID,
+			});
+		}
 	}
 }
-socketChat.on("full_message", function (fullInfo) {
+socketChat.on("full_message", async function (fullInfo) {
 	let typeUser = fullInfo["typing_user"];
-	let divUserImg = document.querySelector(".chattingRoom--user__img");
-	let user = divUserImg.getAttribute("id");
-	// console.log(user, typeUser, fullInfo);
-	if (typeUser == user) {
-		// console.log(user, typeUser, fullInfo);
-
-		buildMessageBox(fullInfo);
+	let url = `/api/usr`;
+	let accessMethod = "GET";
+	let fetchInfo = await fetch(url, {
+		method: accessMethod,
+	});
+	let statusCode = await fetchInfo.json();
+	if (statusCode["message"]) {
+		location.href = `/`;
 	} else {
-		buildFriendMessageBox(fullInfo);
+		userNamespace = statusCode["data"]["user_namespace"];
+		if (typeUser == userNamespace) {
+			buildMessageBox(fullInfo);
+		} else {
+			buildFriendMessageBox(fullInfo);
+		}
 	}
 });

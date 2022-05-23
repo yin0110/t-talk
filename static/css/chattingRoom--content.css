@@ -2,6 +2,9 @@
 	height: 428px;
 	overflow: auto;
 }
+.chattingRoom--chatBox {
+	display: none;
+}
 .chattingRoom--content__user {
 	margin-top: 12px;
 	display: flex;
@@ -15,6 +18,17 @@
 	height: 36px;
 	margin-right: 33.68px;
 	/* margin-left: 755.65px; */
+}
+.brand--logo {
+	height: 654px;
+	width: 825px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.brand--logoImg {
+	width: 172.9px;
+	height: 183.8px;
 }
 .chattingRoom--content__textBox {
 	display: flex;

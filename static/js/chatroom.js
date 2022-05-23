@@ -1,5 +1,3 @@
-// let thisId = localStorage.getItem("userId");
-
 async function get_user_info() {
 	let url = `/api/usr`;
 	let accessMethod = "GET";
@@ -13,11 +11,12 @@ async function get_user_info() {
 		username = statusCode["data"]["name"];
 		userImg = statusCode["data"]["img"];
 		userNamespace = statusCode["data"]["user_namespace"];
+		let mainUser = document.querySelector(".personSection__chatInfo__roomName");
+		mainUser.innerHTML = username;
+		mainUser.style.marginTop = "23px";
+		let mainImg = document.querySelector(".personSection__chatInfo__personImg");
+		mainImg.src = userImg;
 		buildUserInfo(username, userImg, userNamespace);
-		localStorage.setItem("userNS", userNamespace);
-		localStorage.setItem("userName", username);
-		localStorage.setItem("userImg", userImg);
-		return username, userImg, userNamespace;
 	}
 }
 

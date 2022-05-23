@@ -45,18 +45,6 @@ body {
 	filter: brightness(0) invert(1);
 }
 
-.addperson__icon:hover {
-	filter: invert(0.32) sepia(1) saturate(5) hue-rotate(67deg);
-}
-
-.chatting__icon:hover {
-	filter: invert(0.32) sepia(1) saturate(5) hue-rotate(80deg);
-}
-
-.contactperson__icon:hover {
-	filter: invert(0.7) sepia(1) saturate(5) hue-rotate(81deg);
-}
-
 .nav--functionbar__contactperson,
 .nav--functionbar__chatting,
 .nav--functionbar__setting {
@@ -78,6 +66,14 @@ body {
 	margin-left: 2px;
 	cursor: pointer;
 }
+.nav--functionbar__addperson:hover .addperson__icon {
+	filter: invert(0.32) sepia(1) saturate(5) hue-rotate(67deg);
+}
+
+.nav--functionbar__chatting:hover .chatting__icon {
+	filter: invert(0.32) sepia(1) saturate(5) hue-rotate(80deg);
+}
+
 .nav--functionbar__chatting:hover {
 	background-color: #ffff;
 	width: 36.54px;
@@ -89,6 +85,9 @@ body {
 	cursor: pointer;
 }
 
+.nav--functionbar__contactperson:hover .contactperson__icon {
+	filter: invert(0.7) sepia(1) saturate(5) hue-rotate(81deg);
+}
 .nav--functionbar__contactperson:hover {
 	background-color: #ffff;
 	width: 36.54px;
@@ -100,7 +99,8 @@ body {
 	margin-left: 2px;
 	cursor: pointer;
 }
-.setting__icon:hover {
+
+.nav--functionbar__setting:hover .setting__icon {
 	filter: invert(0.7) sepia(1) saturate(5) hue-rotate(81deg);
 }
 .nav--functionbar__setting:hover {

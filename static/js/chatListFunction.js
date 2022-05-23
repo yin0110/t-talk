@@ -44,7 +44,7 @@ function buildChatFriendList(friendInfo) {
 }
 
 // for build chattingroom content interface
-function buildChatRoom(e) {
+async function buildChatRoom(e) {
 	let chatroomContnet = document.querySelector(".chattingRoom--content");
 	chatroomContnet.innerHTML = "";
 	let roomFriendName = e.currentTarget.childNodes[1].textContent;
@@ -55,16 +55,8 @@ function buildChatRoom(e) {
 	let chatFriendName = document.querySelector(
 		".chattingRoom--chatPerson__name"
 	);
+	chatFriendName.id = roomID;
 	chatFriendName.innerHTML = roomFriendName;
-	let userImgDiv = document.querySelector(".chattingRoom--user__img");
-	let userImg = userImgDiv.src;
-
-	socket.emit("connect_to_ns", {
-		roomID: roomID,
-		roomFriendImg: roomImg,
-		roomUserImg: userImg,
-		roomFriendName: roomFriendName,
-
-		// user: userNamespace,
-	});
+	let painting = document.querySelector(".chattingRoom--content__painting");
+	painting.style.display = "none";
 }

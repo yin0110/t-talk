@@ -11,7 +11,7 @@ dbRDS = yaml.safe_load(open('secret.yaml'))
 #                                                    password=dbRDS["password"],
 #                                                    database=dbRDS["db"])
 pool = mysql.connector.pooling.MySQLConnectionPool(pool_name="mypool",
-                                                   pool_size=10,
+                                                   pool_size=3,
                                                    host=dbRDS["host"],
                                                    user=dbRDS["user"],
                                                    password=dbRDS["password"],

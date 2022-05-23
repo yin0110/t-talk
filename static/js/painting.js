@@ -14,6 +14,9 @@ let pencilIcon = document.querySelector(".brushes__box__pencilImg");
 pencilIcon.addEventListener("click", choosePencil);
 let eraserIcon = document.querySelector(".brushes__box__eraser");
 eraserIcon.addEventListener("click", chooseEraser);
+let colorFlag = false;
+let charFriend = document.querySelector(".chattingRoom--chatPerson__name");
+let roomID = charFriend.id;
 
 //choose pencil
 function choosePencil() {
@@ -35,6 +38,7 @@ function openPainting() {
 		paintDiv.style.display = "block";
 		flag = true;
 		paintPenIcon.classList.add("toolIcon");
+
 		// openToolBar();
 	} else {
 		flag = false;
@@ -43,7 +47,6 @@ function openPainting() {
 	}
 }
 //打開畫筆色庫
-let colorFlag = false;
 color.addEventListener("click", openColorBar);
 function openColorBar() {
 	if (colorFlag == false) {
@@ -71,6 +74,8 @@ function selectColor(e) {
 	currentColor = {
 		color: `${chosenColor}`,
 	};
+	colorBar.style.display = "none";
+	colorFlag = false;
 }
 
 //canvas
@@ -141,21 +146,24 @@ window.onload = function () {
 				destinationX: e.offsetX,
 				destinationY: e.offsetY,
 			};
-
+			// socketChat.emit("connection1", () => {
 			socketChat.emit("draw", {
 				drawInfo: drawInfo,
 				lineColor: currentColor.color,
-				roomDetail: 1,
+				roomDetail: roomID,
 				// userInfo: currentUserDetail,
 			});
+			// });
 		} else {
 			context.moveTo(mouseX, mouseY);
 			context.clearRect(mouseX, mouseY, 15, 15);
+			// socketChat.emit("connection2", () => {
 			socketChat.emit("erase", {
 				clearPositionX: mouseX,
 				clearPositionY: mouseY,
-				roomDetail: 1,
+				roomDetail: roomID,
 			});
+			// });
 		}
 	}
 	let broom = document.querySelector(".brushes__box__clearImg");
@@ -164,11 +172,8 @@ window.onload = function () {
 	//clear
 	function clearAll() {
 		context.clearRect(0, 0, canvas.width, canvas.height);
-		socketChat.emit(
-			"clearDraw",
-			"ok"
-			// roomDetail: currentSelectedRoom,
-		);
+		// socketChat.emit("connection3", () => {
+		socketChat.emit("clearDraw", { roomDetail: roomID });
 	}
 	socketChat.on("clearDrawData", (clearDraw) => {
 		if (clearDraw) {

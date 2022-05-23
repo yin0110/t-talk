@@ -27,10 +27,8 @@ function buildChatFriend(roomsInfo) {
 //for building chattingroom userinfo
 function buildUserInfo(username, userImg, userNamespace) {
 	let divUserName = document.querySelector(".chattingRoom--user__name");
-	divUserName.setAttribute("id", username);
 	divUserName.innerHTML = username;
 	let divUserImg = document.querySelector(".chattingRoom--user__img");
-	divUserImg.setAttribute("id", userNamespace);
 	divUserImg.src = userImg;
 }
 
@@ -57,29 +55,6 @@ function buildMessageBox(messageInfo) {
 	chatRoomSpace.scroll({ top: userInfo.offsetTop, behavior: "smooth" });
 }
 
-// function buildFriendMessageBox(messageInfo) {
-// 	let chatRoomSpace = document.querySelector(".chattingRoom--content");
-// 	let userInfo = document.createElement("div");
-// 	userInfo.className = "chattingRoom--content__person";
-// 	chatRoomSpace.appendChild(userInfo);
-// 	let userImg = document.createElement("img");
-// 	userInfo.appendChild(userImg);
-// 	userImg.className = "chattingRoom--content__personImg";
-// 	let messageBox = document.createElement("div");
-// 	messageBox.className = "chattingRoom--content__personTextBox";
-// 	userInfo.appendChild(messageBox);
-// 	let message = document.createElement("p");
-// 	message.className = "content__textBox__personTexting";
-// 	message.innerHTML = messageInfo[0];
-// 	messageBox.appendChild(message);
-// 	let currentTime = document.createElement("div");
-// 	currentTime.className = "chattingRoom--content__personMessageTime";
-// 	userInfo.appendChild(currentTime);
-// 	currentTime.innerHTML = messageInfo[1];
-// 	//自動移動到訊息位置
-// 	chatRoomSpace.scroll({ top: userInfo.offsetTop, behavior: "smooth" });
-// }
-
 function buildFriendMessageBox(messageInfo) {
 	let chatRoomSpace = document.querySelector(".chattingRoom--content");
 	let userInfo = document.createElement("div");
@@ -88,7 +63,7 @@ function buildFriendMessageBox(messageInfo) {
 	let userImg = document.createElement("img");
 	userInfo.appendChild(userImg);
 	userImg.className = "chattingRoom--content__personImg";
-	userImg.src = messageInfo["img"];
+	userImg.src = messageInfo["user_Img"];
 	let messageBox = document.createElement("div");
 	messageBox.className = "chattingRoom--content__personTextBox";
 	userInfo.appendChild(messageBox);
