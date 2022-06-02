@@ -38,9 +38,6 @@ async function addFriendInDB(info, searchFriendBox) {
 function buildSearchEmailContent(statusCode) {
 	let friendImg = statusCode["data"]["img"];
 	let friendName = statusCode["data"]["name"];
-	// let searchFriendBoxOuter = document.querySelector(
-	// 	".room--personSection__emailOuter"
-	// );
 	searchFriendBoxOuter.style.display = "block";
 	searchFriendBoxOuter.innerHTML = "";
 	let searchFriendBox = document.createElement("div");

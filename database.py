@@ -1,19 +1,116 @@
 import mysql.connector.pooling
 import mysql.connector
 import yaml
+import firebase_admin
+from firebase_admin import credentials, firestore
+from elasticsearch import Elasticsearch
+from elasticsearch_dsl import search
 
+cred = credentials.Certificate("secret.json")
+firebase_admin.initialize_app(cred)
 
+# AWS RDS
 dbRDS = yaml.safe_load(open('secret.yaml'))
-# pool = mysql.connector.pooling.MySQLConnectionPool(pool_name="mypool",
-#                                                    pool_size=10,
-#                                                    host=dbRDS["host"],
-#                                                    user=dbRDS["user"],
-#                                                    password=dbRDS["password"],
-#                                                    database=dbRDS["db"])
 pool = mysql.connector.pooling.MySQLConnectionPool(pool_name="mypool",
-                                                   pool_size=3,
+                                                   pool_size=10,
                                                    host=dbRDS["host"],
                                                    user=dbRDS["user"],
                                                    password=dbRDS["password"],
-                                                   database=dbRDS["db"],
-                                                   port=dbRDS["port"])
+                                                   database=dbRDS["db"])
+# pool = mysql.connector.pooling.MySQLConnectionPool(pool_name="mypool",
+#                                                    pool_size=3,
+#                                                    host=dbRDS["host"],
+#                                                    user=dbRDS["user"],
+#                                                    password=dbRDS["password"],
+#                                                    database=dbRDS["db"],
+#                                                    port=dbRDS["port"])
+
+
+# Firebase
+db = firestore.client()
+
+# Elastic search
+elastic_search = Elasticsearch(cloud_id=dbRDS["cloud_id"], http_auth=(
+    "elastic", dbRDS["elastic_passowrd"]))
+
+
+elastic_search.info()
+
+# firebase = pyrebase.initialize_app(firebaseConfig)
+# db = firebase.database()
+# auth = firebase.auth
+
+# email = dbRDS["email"]
+# password = dbRDS["password"]
+
+mapping = """{
+    "mappings": {
+        "properties": {
+            "room_id": {"type": "integer"},
+            "user": {"type": "keyword"},
+            "time": {"type": "integer"},
+            "history": {"type": "text"}
+        }
+    }
+}"""
+# client.indices.create(index="search")
+# b = elastic_search.indices.create(index='search', body=mapping)
+# print(b)
+# a = elastic_search.indices.delete(index="search")
+# print(a)
+
+doc_1 = {
+    "room_id": 1,
+    "user": "/000",
+    "time": 20211011,
+    "history": "我來試試看看狀況"
+}
+doc_2 = {
+    "room_id": 1,
+    "user": "/000",
+    "time": 20211012,
+    "history": "測試2  好棒棒"
+}
+doc_4 = {
+    "room_id": 1,
+    "user": "/000",
+    "time": 20211017,
+    "history": "好好喔"
+}
+dsl = {
+    'query': {
+        "ids": {
+            "values": "r_PXGIEBSEIMdYtsvkW7"
+        }
+        # 'match': {
+        #     'history': '烏龍'
+        # }
+    }
+    # "sort": {
+    #     "time": {                 # 根據age欄位升序排序
+    #         "order": "asc"       # asc升序，desc降序
+    #     }
+    # }
+}
+
+# dsl = {
+#     "query": {
+#         "bool": {
+#             "must": [
+#                 {"match": {"room_id":   1}}
+#             ],
+#             "filter": [
+#                 {"range": {"time": {"gte": 20211012}}}
+#             ]
+#         }
+#     },
+#     "from": 0,
+#     "size": 2
+# }
+
+
+# resp = elastic_search.search(index='search', body=dsl)
+# print(json.dumps(resp["hits"]["hits"], indent=2, ensure_ascii=False))
+# print("Got %d Hits:" % resp['hits']['total']['value'])
+# for hit in resp['hits']['hits']:
+#     print("%(user)s %(time)s %(history)s" % hit["_source"])

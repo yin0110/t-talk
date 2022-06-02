@@ -100,15 +100,28 @@
 	width: 22px;
 	height: 22px;
 }
-.toolIcon__search__icon {
+.toolIcon__search__icon:hover {
+	filter: invert(0.32) sepia(1) saturate(5) hue-rotate(75deg);
+}
+/* .toolIcon__search__icon {
 	z-index: 10;
 	top: 18px;
 	left: 9px;
 	position: absolute;
 	width: 22px;
 	height: 22px;
-}
+} */
 
+.input__history__search {
+	margin-top: 10px;
+	width: 250px;
+	height: 45px;
+	border: none;
+	border-radius: 5px;
+	padding-left: 40px;
+	color: #00854a;
+	font-size: 14px;
+}
 .chatPerson__toolIcon__delete {
 	margin-top: 10px;
 	position: relative;
@@ -145,4 +158,57 @@
 	margin-top: 8px;
 	margin-left: 20px;
 	border: 0.5px solid rgba(152, 159, 201, 0.12);
+}
+
+.history__search {
+	margin-left: 150px;
+	position: relative;
+	margin-top: 25px;
+	display: none;
+}
+
+.history__search__input {
+	margin-left: 20px;
+	background-color: #ffff;
+	width: 345px;
+	height: 50px;
+	border-radius: 5px;
+	border: none;
+	padding-left: 40px;
+	color: #00854a;
+	font-size: 14px;
+}
+.history__search__input::placeholder {
+	color: #00854a;
+	opacity: 0.7;
+}
+.history__search__icon {
+	width: 16.89px;
+	height: 17.27px;
+	position: absolute;
+	left: 33px;
+	top: 16px;
+}
+.history_search_close {
+	position: absolute;
+	width: 14px;
+	height: 14px;
+	top: 16px;
+	left: 340px;
+	cursor: pointer;
+}
+
+.loading__page {
+	width: 1280px;
+	height: 654px;
+	background-color: #00854a;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	display: none;
+}
+.load__img {
+	width: 512px;
+	height: 512px;
+	filter: brightness(0) invert(1);
 }

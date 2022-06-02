@@ -34,10 +34,13 @@ async function getMessage(event) {
 				".chattingRoom--chatPerson__name"
 			);
 			let roomID = charFriend.id;
-			socketChat.emit("message", {
-				message: result,
-				roomID: roomID,
-			});
+			if (result == "empty") {
+			} else {
+				socketChat.emit("message", {
+					message: result,
+					roomID: roomID,
+				});
+			}
 		}
 	}
 }

@@ -5,6 +5,10 @@
 	font-family: "DM Sans", sans-serif;
 	/* overflow-y: hidden; */
 }
+body {
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
 .outer {
 	width: 1200px;
 	height: 700px;
@@ -13,12 +17,13 @@
 	align-items: center;
 }
 .login {
-	margin-top: 15px;
+	/* margin-top: -30px; */
 	margin-bottom: 15px;
 	width: 428px;
 	height: 603px;
 	border: 2px solid #7b649a;
 	border-radius: 7px;
+	margin-left: 60px;
 	/* border-color: #7b649a; */
 }
 .login--welcomeDiv {
@@ -230,7 +235,9 @@ hr {
 }
 
 .pictureBoard {
+	/* margin-top: -42px; */
 	display: grid;
+	/* width: 400px; */
 	margin-left: 62.55px;
 	grid-template-columns: 1fr 1fr 1fr;
 }
@@ -239,10 +246,12 @@ hr {
 	height: 150px;
 }
 .picture--img2 {
+	margin-left: -11px;
 	width: 186.68px;
 	height: 150px;
 }
 .picture--img3 {
+	margin-left: -20.5px;
 	width: 186.16px;
 	height: 150px;
 }
@@ -251,10 +260,14 @@ hr {
 	height: 150px;
 }
 .picture--img5 {
-	width: 206.7px;
+	margin-top: -1px;
+	margin-left: -40px;
+	width: 216px;
 	height: 150px;
 }
 .picture--img6 {
+	margin-top: -1px;
+	margin-left: -20px;
 	width: 186.16px;
 	height: 150px;
 }
@@ -263,22 +276,30 @@ hr {
 	height: 150px;
 }
 .picture--img8 {
+	margin-top: -1px;
+	margin-left: -10px;
 	width: 186.16px;
 	height: 150px;
 }
 .picture--img9 {
+	margin-top: -1px;
+	margin-left: -20px;
 	width: 186.16px;
 	height: 150px;
 }
 .picture--img10 {
+	margin-top: -1px;
 	width: 196.2px;
 	height: 150px;
 }
 .picture--img11 {
-	width: 167.63px;
+	margin-top: -1px;
+	width: 150px;
 	height: 150px;
 }
 .picture--img12 {
-	width: 194.3px;
+	margin-top: -1px;
+	margin-left: -45px;
+	width: 212.3px;
 	height: 150px;
 }

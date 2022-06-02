@@ -60,7 +60,6 @@ function openColorBar() {
 
 //open color box
 function openToolBar() {
-	console.log(colorBar);
 	color.addEventListener("click", openColorBar);
 	function openColorBar() {
 		colorBar.style.display = "block";

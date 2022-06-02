@@ -32,6 +32,9 @@
 			integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
 			crossorigin="anonymous"
 		></script>
+		<div class="loading__page">
+			<img class="load__img" src="/static/img/load.png" alt="" />
+		</div>
 		<div class="wholeSection">
 			<div class="nav--functionbar">
 				<div class="nav--functionbar__addperson">
@@ -91,7 +94,7 @@
 				</div>
 				<div class="room--personSection__emailOuter"></div>
 			</div>
-			<div class="chattingRoom">
+			<div class="chattingRoom" height="395px">
 				<div class="brand--logo">
 					<img class="brand--logoImg" src="static/img/logo.png" alt="" />
 				</div>
@@ -111,10 +114,8 @@
 							src="static/img/barysan.png"
 							alt=""
 						/>
-						<div class="chattingRoom--chatPerson__name">
-							yin Chuang
-							<div class="chattingRoom--chatPerson__status">Online</div>
-						</div>
+						<div class="chattingRoom--chatPerson__name"></div>
+						<!-- <div class="chattingRoom--chatPerson__status">Online</div> -->
 						<div class="chattingRoom--chatPerson__toolIcon">
 							<div class="chatPerson__toolIcon__paint">
 								<img
@@ -164,6 +165,23 @@
 									alt=""
 								/>
 							</div>
+						</div>
+						<div class="history__search">
+							<img
+								class="history__search__icon"
+								src="static/img/greensearch.png"
+								alt=""
+							/>
+							<input
+								class="history__search__input"
+								type="text"
+								placeholder="Search"
+							/>
+							<img
+								class="history_search_close"
+								src="/static/img/close.png"
+								alt=""
+							/>
 						</div>
 					</div>
 					<div class=".chattingRoom--div__hr">
@@ -310,6 +328,27 @@
 						</div>
 						<div class="chattingRoom--content__personMessageTime">09:00</div>
 					</div> -->
+						<div class="history__chatInfoOuter">
+							<div class="history__chatInfo">
+								<img
+									class="history__chatInfo__personImg"
+									src="/static/img/barysan.png"
+									alt=""
+								/>
+								<div class="history__chatInfo__roomName">Yin Chuang</div>
+								<div class="history__chatInfo__messageTime">
+									2021/05/12 18:20
+								</div>
+								<div class="history__chatInfo__latestMessage">
+									我是歷史訊息~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="type--box">
+						<div class="type--loading">
+							<img class="ladingImg" src="/static/img/load.svg" alt="" />
+						</div>
 					</div>
 					<div class="messageBar">
 						<div class="messageBar__tool">
@@ -370,5 +409,6 @@
 	<script src="{{url_for('static', filename='/js/chatListFunction.js')}}"></script>
 	<script src="{{url_for('static', filename='/js/chatList.js')}}"></script>
 	<script src="{{url_for('static', filename='/js/painting.js')}}"></script>
+	<script src="{{url_for('static', filename='/js/historySearch.js')}}"></script>
 	<script src="{{url_for('static', filename='/js/socket.js')}}"></script>
 </html>

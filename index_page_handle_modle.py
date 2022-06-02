@@ -34,15 +34,6 @@ class member:
             cur.close()
             cnx.close()
 
-    # def check_member_login_info(self):
-    #     token = request.cookies.get('user_token')
-    #     user_info = jwt.decode(token.encode('UTF-8'),
-    #                            dbRDS["mysecret"], algorithms="HS256")
-
-    #     data = jsonify({"data": user_info
-    #                     })
-    #     return data, 200
-
     def handle_token_info(self, data):
         user_data = jsonify({"data": data})
         return user_data, 200
@@ -94,7 +85,6 @@ def check_token(callback):
     def get_token():
         token = request.cookies.get('user_token')
         if not token:
-            # data = jsonify({"error": True, "message": "not login"})
             return render_template("login.html")
         try:
             user_info = jwt.decode(token.encode('UTF-8'),
@@ -102,5 +92,13 @@ def check_token(callback):
             return callback(user_info)
         except Exception as e:
             data = jsonify({"error": True, "message": "server issue"})
-            return data, 500
+            return render_template("login.html")
     return get_token
+
+
+def get_user_info():
+    token = request.cookies.get('user_token')
+
+    user_info = jwt.decode(token.encode('UTF-8'),
+                           dbRDS["mysecret"], algorithms="HS256")
+    return user_info

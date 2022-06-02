@@ -1,31 +1,36 @@
 from socket import socket
 from flask import *
 from flask_socketio import SocketIO, emit, join_room, leave_room, send, Namespace
-# from namespace import user_namespace
-# from room import contact_room
 from datetime import datetime, date
-
-from numpy import broadcast
-from sqlalchemy import true
 from index_page_Handle import index_handler
 from member_chatroom_info import chatroom_info
 from index_page_handle_modle import check_token
-from database import pool, dbRDS
+from database import dbRDS
+from db_history import history
+from history_search_route import search_handler
+from history_search_modle import elastic_db
 import jwt
 import pytz
+
 # from datetime import timezone
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
 app.register_blueprint(index_handler)
 app.register_blueprint(chatroom_info)
+app.register_blueprint(search_handler)
+
+user_socket_id = {}
 
 
 def handle_time():
     tw = pytz.timezone('Asia/Taipei')
     now = datetime.now(tw)
     current_time = now.strftime("%H:%M")
-    return current_time
+    detail_time = now.strftime("%Y%m%d%H%M%S")
+    detail_time = int(detail_time)
+    time_info = {"current_time": current_time, "detail_time": detail_time}
+    return time_info
 
 
 @ app.route("/")
@@ -35,45 +40,41 @@ def index():
 
 @ app.route("/chatroom")
 def chat_room():
+    token = request.cookies.get('user_token')
+    if not token:
+        return render_template("login.html")
     return render_template("chatroom.html")
 
 
-@app.route("/api/room/<room_id>", methods=["GET"])
-def get_room_id(room_id):
-    session["room_id"] = room_id
-    data = jsonify({"data": "ok"})
-    return data, 200
+@socketio.on("join", namespace="/talk")
+def join(room_id):
+    room = room_id
+    join_room(room)
+    # a = request.sid
+    # print(a)
+    # emit("message", "ok", to=room)
 
 
 @socketio.on("message", namespace="/talk")
 def send_back_data(message):
-    if message == "empty":
-        pass
-    else:
-        room = message["roomID"]
-        token = request.cookies.get('user_token')
-        user_info = jwt.decode(token.encode('UTF-8'),
-                               dbRDS["mysecret"], algorithms="HS256")
-        typing_user = user_info["user_namespace"]
-        room_user_img = user_info["img"]
-        # cnx = pool.get_connection()
-        # cur = cnx.cursor(dictionary=True)
-        # cur.execute(
-        #     "SELECT user_2, user_1, img, user_namespace, name FROM member_info JOIN member_friend ON user_namespace=user_2 OR user_namespace=user_1 WHERE NOT name=%s AND room_id=%s",
-        #     (typing_user, chat_room_id))
-        # info = cur.fetchone()
-        # room_friend_img = info["img"]
-        # room_friend_name = info["name"]
-        # cur.close()
-        # cnx.close()
-        message_content = message["message"]
-        current_time = handle_time()
-        join_room(room)
-        # handle_history(typing_user, current_time,
-        #                message_content, chat_room_id)
-        user_info_for_room = {"message": message_content,
-                              "time": current_time, "typing_user": typing_user, "user_Img": room_user_img}
-        emit("full_message", user_info_for_room, to=room)
+    room = message["roomID"]
+    token = request.cookies.get('user_token')
+    user_info = jwt.decode(token.encode('UTF-8'),
+                           dbRDS["mysecret"], algorithms="HS256")
+    typing_user = user_info["user_namespace"]
+    room_user_img = user_info["img"]
+    # a = request.sid
+    # print("socket"+a)
+    join_room(room)
+    message_content = message["message"]
+    time_info = handle_time()
+    current_time = time_info["current_time"]
+    detail_time = time_info["detail_time"]
+    user_info_for_room = {"message": message_content,
+                          "time": current_time, "typing_user": typing_user, "user_Img": room_user_img}
+    emit("full_message", user_info_for_room, to=room)
+    # history.store_history(room, typing_user, detail_time, message_content)
+    # elastic_db.put_doc(room, typing_user, detail_time, message_content)
 
 
 @socketio.on("draw", namespace="/talk")
@@ -97,42 +98,21 @@ def handle_draw(erase_info):
     emit("clearDrawData", "ok", to=room)
 
 
-def handle_history(typing_user, current_time, message_content, chat_room_id):
-    try:
-        cnx = pool.get_connection()
-        cur = cnx.cursor(dictionary=True)
-        cur.execute("INSERT INTO member_history(room_id_history, user, user_time, user_history) VALUES (%s, %s, %s, %s)",
-                    (chat_room_id, typing_user, current_time, message_content))
-        cnx.commit()
-        data = jsonify({"ok": True})
-        return data, 200
-    except:
-        data = jsonify({"error": True,
-                        "message": "內部問題"
-                        })
-        return data, 500
-    finally:
-        cur.close()
-        cnx.close()
-
-
-def load_history(chat_room_id):
-    try:
-        cnx = pool.get_connection()
-        cur = cnx.cursor(dictionary=True)
-        cur.execute("SELECT user, user_time, user_history FROM member_history WHERE room_id_history=%s)",
-                    (chat_room_id,))
-        data = jsonify({"ok": True})
-        return data, 200
-    except:
-        data = jsonify({"error": True,
-                        "message": "內部問題"
-                        })
-        return data, 500
-    finally:
-        cur.close()
-        cnx.close()
+@socketio.on("typing", namespace="/talk")
+def handle_typing(type_info):
+    room = type_info["roomDetail"]
+    flag = type_info["flag"]
+    token = request.cookies.get('user_token')
+    user_info = jwt.decode(token.encode('UTF-8'),
+                           dbRDS["mysecret"], algorithms="HS256")
+    typing_user = user_info["name"]
+    join_room(room)
+    allInfo = {
+        "flag": flag,
+        "type_user": typing_user
+    }
+    emit("typingStatus", allInfo, to=room)
 
 
 if __name__ == '__main__':
-    socketio.run(app, host="0.0.0.0", port=4000, debug=True)
+    socketio.run(app, port=4000, debug=True)

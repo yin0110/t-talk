@@ -1,6 +1,3 @@
-// import { buildMessageBox, buildFriendMessageBox } from "./buildContent";
-// let chatNS = localStorage.getItem("chatNS");
-
 let roomTitle = null;
 // let socket = io("http://0.0.0.1:4000/");
 // let socketChat = io(`/${chatNS}`);
@@ -64,7 +61,6 @@ socket2.on("build_rooms", function (roomInfo) {
 
 //建立聯絡人聊天室
 socket2.on("chatroom_info", (chatRoomData) => {
-	console.log(chatRoomData);
 	function loadChatRoomData(Data) {
 		let chatFriendImg = document.querySelector(
 			".chattingRoom--chatPerson__img"

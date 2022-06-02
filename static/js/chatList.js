@@ -23,7 +23,7 @@ async function showChatFriends() {
 		let response = await fetchInfo.json();
 		if (response["data"]) {
 			let friendInfo = response["data"];
-			buildChatFriendList(friendInfo);
+			await buildChatFriendList(friendInfo);
 			Array.from(
 				document.querySelectorAll(".room--personSection__chatInfo")
 			).forEach((element) => {
