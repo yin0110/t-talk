@@ -1,4 +1,8 @@
-let socketChat = io("/talk");
+let socketChat = io("/talk", {
+	secure: true,
+	reconnect: true,
+	rejectUnauthorized: false,
+});
 
 //取得message input 對應div以及設置enter事件
 let input = document.querySelector(".messageBar__texting__input");

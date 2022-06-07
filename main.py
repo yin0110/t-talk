@@ -1,6 +1,5 @@
-from socket import socket
 from flask import *
-from flask_socketio import SocketIO, emit, join_room, leave_room, send, Namespace
+from flask_socketio import SocketIO, emit, join_room
 from datetime import datetime, date
 from index_page_Handle import index_handler
 from member_chatroom_info import chatroom_info
@@ -73,8 +72,8 @@ def send_back_data(message):
     user_info_for_room = {"message": message_content,
                           "time": current_time, "typing_user": typing_user, "user_Img": room_user_img}
     emit("full_message", user_info_for_room, to=room)
-    # history.store_history(room, typing_user, detail_time, message_content)
-    # elastic_db.put_doc(room, typing_user, detail_time, message_content)
+    history.store_history(room, typing_user, detail_time, message_content)
+    elastic_db.put_doc(room, typing_user, detail_time, message_content)
 
 
 @socketio.on("draw", namespace="/talk")

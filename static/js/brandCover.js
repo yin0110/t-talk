@@ -11,3 +11,13 @@ loadPage.display = "none";
 // setTimeout(() => {
 // 	loadPage.style.display = "none";
 // }, "2000");
+
+const button = document.querySelector(".messageBar__emoji");
+
+const picker = new EmojiButton();
+picker.on("emoji", (emoji) => {
+	document.querySelector(".messageBar__texting__input").value += emoji;
+});
+button.addEventListener("click", () => {
+	picker.togglePicker(button);
+});

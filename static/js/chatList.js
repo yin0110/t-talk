@@ -2,6 +2,7 @@ let chatIcon = document.querySelector(".nav--functionbar__chatting");
 let friendSection = document.querySelector(
 	".room--personSection__chatInfoOuter"
 );
+let userList = document.querySelector(".nav--functionbar__contactperson");
 
 async function showChatFriends() {
 	let userUrl = `/api/usr`;
@@ -50,4 +51,9 @@ async function showChatList() {
 	searchFriend.style.display = "none";
 	searchFriendBoxOuter.style.display = "none";
 	await showChatFriends();
+}
+userList.addEventListener("click", showFriendList);
+
+function showFriendList() {
+	console.log("ok");
 }

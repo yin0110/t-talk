@@ -22,6 +22,11 @@ def handle_member_get(data):
     return member.handle_token_info(data)
 
 
+@index_handler.route("/api/usr", methods=["DELETE"])
+def handle_mmember_delete():
+    return member.sign_out()
+
+
 @index_handler.route("/api/history/<room_id>", methods=["GET"])
 def get_history(room_id):
     return history.load_history(room_id)

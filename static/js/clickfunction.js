@@ -1,7 +1,11 @@
 let messageInput = document.querySelector(".messageBar__texting__input");
 let loading = document.querySelector(".type--loading");
 let keyFlag = false;
-let socket = io("/talk");
+let socket = io("/talk", {
+	secure: true,
+	reconnect: true,
+	rejectUnauthorized: false,
+});
 
 messageInput.addEventListener("keydown", (e) => {
 	let charFriendDiv = document.querySelector(".chattingRoom--chatPerson__name");

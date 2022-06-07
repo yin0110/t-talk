@@ -17,7 +17,7 @@ body {
 	align-items: center;
 }
 .login {
-	/* margin-top: -30px; */
+	margin-top: -30px;
 	margin-bottom: 15px;
 	width: 428px;
 	height: 603px;
@@ -235,7 +235,7 @@ hr {
 }
 
 .pictureBoard {
-	/* margin-top: -42px; */
+	margin-top: -42px;
 	display: grid;
 	/* width: 400px; */
 	margin-left: 62.55px;

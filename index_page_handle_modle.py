@@ -77,6 +77,11 @@ class member:
             cur.close()
             cnx.close()
 
+    def sign_out(self):
+        data = jsonify({"ok": True})
+        data.delete_cookie('user_token')
+        return data, 200
+
 
 member = member()
 

@@ -5,6 +5,8 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import search
+# from redis import Redis
+import redis
 
 cred = credentials.Certificate("secret.json")
 firebase_admin.initialize_app(cred)
@@ -35,6 +37,23 @@ elastic_search = Elasticsearch(cloud_id=dbRDS["cloud_id"], http_auth=(
 
 
 elastic_search.info()
+
+
+redis = redis.Redis(host="localhost", port=6379)
+
+
+# b = r.get("key")
+# print(b)
+# r.delete("key")
+# if(r.exists("key")):
+#     print(r.get("key"))
+
+# r.psetex("keey", 1000, "ok")
+# 秒
+# r.setex("ok", 10, "no")
+# if redis.ping():
+#     logging.info("Connected to Redis")
+#     print("ok")
 
 # firebase = pyrebase.initialize_app(firebaseConfig)
 # db = firebase.database()

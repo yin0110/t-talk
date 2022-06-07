@@ -1,5 +1,5 @@
 from flask import *
-from database import pool
+from database import pool, redis
 from namespace import user_namespace
 
 
@@ -102,11 +102,27 @@ def show_friend():
         user_name = request.args.get("username")
         cnx = pool.get_connection()
         cur = cnx.cursor(dictionary=True)
-        cur.execute(
-            "SELECT room_id ,user_2, user_1, img, name FROM member_info JOIN member_friend ON user_namespace=user_2 OR user_namespace=user_1 WHERE NOT name=%s AND (user_2 = %s OR user_1 = %s)", (user_name, user_2, user_1))
-        info = cur.fetchall()
-        data = jsonify({"data": info})
-        return data, 200
+        try:
+            redisInfo = json.loads(redis.get(user_1))
+            if redisInfo != None:
+                data = jsonify({"data": redisInfo})
+                return data, 200
+            else:
+                cur.execute(
+                    "SELECT room_id ,user_2, user_1, img, name FROM member_info JOIN member_friend ON user_namespace=user_2 OR user_namespace=user_1 WHERE NOT name=%s AND (user_2 = %s OR user_1 = %s)", (user_name, user_2, user_1))
+                info = cur.fetchall()
+                data = jsonify({"data": info})
+                json_info = json.dumps(info)
+                redis.set(user_1, json_info, ex=30)
+                return data, 200
+        except Exception as e:
+            cur.execute(
+                "SELECT room_id ,user_2, user_1, img, name FROM member_info JOIN member_friend ON user_namespace=user_2 OR user_namespace=user_1 WHERE NOT name=%s AND (user_2 = %s OR user_1 = %s)", (user_name, user_2, user_1))
+            info = cur.fetchall()
+            data = jsonify({"data": info})
+            json_info = json.dumps(info)
+            redis.set(user_1, json_info, ex=300)
+            return data, 200
     except:
         data = jsonify({"error": True,
                         "message": "內部問題"

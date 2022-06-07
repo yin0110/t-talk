@@ -5,7 +5,9 @@ let flag = false;
 let paintDiv = document.querySelector(".chattingRoom--content__painting");
 let color = document.querySelector(".brushes__box__color");
 let colorBar = document.querySelector(".content__painting__color");
+let savePic = document.querySelector(".brushes__box__lineImg");
 // let toolItem = null;
+
 let currentColor = {
 	color: "black",
 };
@@ -80,8 +82,20 @@ function selectColor(e) {
 //canvas
 window.onload = function () {
 	let canvas = document.querySelector("#paint-canvas");
+	savePic.addEventListener("click", function () {
+		savePic.setAttribute("download", "img.png");
+		let saveImg = canvas
+			.toDataURL("image/png")
+			.replace("image/png", "image/octet-stream");
+		window.location.href = saveImg;
+		// savePic.download = "IMAGE.PNG";
+	});
 	// let drawing = false;
-	let socketChat = io("/talk");
+	let socketChat = io("/talk", {
+		secure: true,
+		reconnect: true,
+		rejectUnauthorized: false,
+	});
 	let context = canvas.getContext("2d");
 	context.fillStyle = "#FFFFFF";
 	context.fillRect(0, 0, canvas.width, canvas.height);
