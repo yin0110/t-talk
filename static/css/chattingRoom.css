@@ -53,6 +53,7 @@
 	margin-left: 24px;
 	font-size: 24px;
 	font-weight: 500;
+	width: 650px;
 }
 .chattingRoom--chatPerson__status {
 	font-size: 18px;
@@ -62,8 +63,8 @@
 .chattingRoom--chatPerson__toolIcon {
 	display: flex;
 	flex-direction: row;
-	width: 218px;
-	margin-left: 280px;
+	width: 180px;
+	/* margin-left: 280px; */
 	margin-top: 20px;
 	position: relative;
 	/* background-color: blueviolet; */
@@ -164,10 +165,11 @@
 }
 
 .history__search {
-	margin-left: 150px;
-	position: relative;
+	/* margin-left: 150px; */
+	position: absolute;
 	margin-top: 25px;
 	display: none;
+	left: 410px;
 }
 
 .history__search__input {

@@ -1,11 +1,11 @@
-let paintPen = document.querySelector(".chatPerson__toolIcon__paint");
-let paintPenIcon = document.querySelector(".toolIcon__paint__icon");
+let paintPen = document.querySelector(".messageBar---tool__round");
 paintPen.addEventListener("click", openPainting);
 let flag = false;
 let paintDiv = document.querySelector(".chattingRoom--content__painting");
 let color = document.querySelector(".brushes__box__color");
 let colorBar = document.querySelector(".content__painting__color");
 let savePic = document.querySelector(".brushes__box__lineImg");
+let exit = document.querySelector(".brushes__box__exit");
 // let toolItem = null;
 
 let currentColor = {
@@ -39,15 +39,21 @@ function openPainting() {
 	if (flag === false) {
 		paintDiv.style.display = "block";
 		flag = true;
-		paintPenIcon.classList.add("toolIcon");
+		toolBox.style.display = "none";
 
 		// openToolBar();
 	} else {
 		flag = false;
 		paintDiv.style.display = "none";
-		paintPenIcon.classList.remove("toolIcon");
 	}
 }
+//choose exit
+exit.addEventListener("click", exitCanvas);
+function exitCanvas() {
+	flag = false;
+	paintDiv.style.display = "none";
+}
+
 //打開畫筆色庫
 color.addEventListener("click", openColorBar);
 function openColorBar() {

@@ -10,20 +10,13 @@ input.addEventListener("keypress", getMessage);
 //取得send button並設置click event
 let sendButton = document.querySelector(".messageBar__send");
 sendButton.addEventListener("click", click);
-function click() {
+async function click() {
 	clientMessage = input.value;
 	if (clientMessage.length == 0) {
 		return "empty";
 	} else {
 		clientMessage = input.value;
 		input.value = "";
-		return clientMessage;
-	}
-}
-async function getMessage(event) {
-	if (event.key === "Enter") {
-		event.preventDefault();
-		result = click();
 		let url = `/api/usr`;
 		let accessMethod = "GET";
 		let fetchInfo = await fetch(url, {
@@ -38,14 +31,43 @@ async function getMessage(event) {
 				".chattingRoom--chatPerson__name"
 			);
 			let roomID = charFriend.id;
-			if (result == "empty") {
+			if (clientMessage == "empty") {
 			} else {
 				socketChat.emit("message", {
-					message: result,
+					message: clientMessage,
 					roomID: roomID,
 				});
 			}
 		}
+		return clientMessage;
+	}
+}
+async function getMessage(event) {
+	if (event.key === "Enter") {
+		event.preventDefault();
+		result = await click();
+		// let url = `/api/usr`;
+		// let accessMethod = "GET";
+		// let fetchInfo = await fetch(url, {
+		// 	method: accessMethod,
+		// });
+		// let statusCode = await fetchInfo.json();
+		// if (statusCode["message"]) {
+		// 	location.href = `/`;
+		// } else {
+		// 	userNamespace = statusCode["data"]["user_namespace"];
+		// 	let charFriend = document.querySelector(
+		// 		".chattingRoom--chatPerson__name"
+		// 	);
+		// 	let roomID = charFriend.id;
+		// 	if (result == "empty") {
+		// 	} else {
+		// 		socketChat.emit("message", {
+		// 			message: result,
+		// 			roomID: roomID,
+		// 		});
+		// 	}
+		// }
 	}
 }
 socketChat.on("full_message", async function (fullInfo) {

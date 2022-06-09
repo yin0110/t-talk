@@ -1,6 +1,5 @@
 from flask import *
 from database import pool, redis
-from namespace import user_namespace
 
 
 chatroom_info = Blueprint("chatroom_info", __name__)

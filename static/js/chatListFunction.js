@@ -242,47 +242,68 @@ async function buildChatRoom(e) {
 }
 
 async function buildPreviousPage(roomID, clickedTime, divEnd, url) {
-	let method = "GET";
-	let response = await fetch(url, {
-		method: method,
-	});
-	let statusCode = await response.json();
-	let historyInfo = statusCode["data"];
-	let userInfo = statusCode["user"];
-	let history = [];
-	let fullTime = [];
-	let time = [];
-	let user = [];
-	let img = [];
-	let friendDiv = document.querySelector(".chattingRoom--chatPerson__name");
-	let friendName = friendDiv.innerHTML;
-	let friendImgDiv = document.querySelector(".chattingRoom--chatPerson__img");
-	let friendImg = friendImgDiv.src;
-	for (data in historyInfo) {
-		let allName = historyInfo[data].user;
-		if (allName == userInfo["user_namespace"]) {
-			userName = userInfo["name"];
-			user.push(userName);
-			img.push(userInfo["img"]);
-		} else {
-			user.push(friendName);
-			img.push(friendImg);
+	if (clickedTime == undefined) {
+	} else {
+		let method = "GET";
+		let response = await fetch(url, {
+			method: method,
+		});
+		let statusCode = await response.json();
+		let historyInfo = statusCode["data"];
+		let userInfo = statusCode["user"];
+		let history = [];
+		let fullTime = [];
+		let time = [];
+		let user = [];
+		let img = [];
+		let friendDiv = document.querySelector(".chattingRoom--chatPerson__name");
+		let friendName = friendDiv.innerHTML;
+		let friendImgDiv = document.querySelector(".chattingRoom--chatPerson__img");
+		let friendImg = friendImgDiv.src;
+		for (data in historyInfo) {
+			let allName = historyInfo[data].user;
+			if (allName == userInfo["user_namespace"]) {
+				userName = userInfo["name"];
+				user.push(userName);
+				img.push(userInfo["img"]);
+			} else {
+				user.push(friendName);
+				img.push(friendImg);
+			}
+			let historyTime = historyInfo[data].user_time;
+			let stringTime = historyTime.toString();
+			hr = stringTime.slice(8, 10);
+			min = stringTime.slice(10, 12);
+			let messageTimg = hr + ":" + min;
+			time.push(messageTimg);
+			fullTime.push(historyTime);
+			let allHistory = historyInfo[data].user_history;
+			history.push(allHistory);
 		}
-		let historyTime = historyInfo[data].user_time;
-		let stringTime = historyTime.toString();
-		hr = stringTime.slice(8, 10);
-		min = stringTime.slice(10, 12);
-		let messageTimg = hr + ":" + min;
-		time.push(messageTimg);
-		fullTime.push(historyTime);
-		let allHistory = historyInfo[data].user_history;
-		history.push(allHistory);
-	}
-	let foundQty = time.length;
-	let lastMassage = [];
-	if (foundQty == 21) {
-		for (let length = 0; length < foundQty - 1; length++) {
-			if (length == 0) {
+		let foundQty = time.length;
+		let lastMassage = [];
+		if (foundQty == 21) {
+			for (let length = 0; length < foundQty - 1; length++) {
+				if (length == 0) {
+					let perImg = img[length];
+					let perFullTime = fullTime[length];
+					let perName = user[length];
+					let perTime = time[length];
+					let perHistory = history[length];
+					let fullInfo = {
+						user_Img: perImg,
+						message: perHistory,
+						time: perTime,
+					};
+					let searchInfo = { time: perFullTime, history: perHistory };
+					lastMassage.push(searchInfo);
+					result = { messageInfo: lastMassage, foundQty: foundQty };
+					if (perName == userInfo["name"]) {
+						buildHistoryMessageBox(fullInfo, divEnd);
+					} else {
+						buildFriendHistoryMessageBox(fullInfo, divEnd);
+					}
+				}
 				let perImg = img[length];
 				let perFullTime = fullTime[length];
 				let perName = user[length];
@@ -293,50 +314,33 @@ async function buildPreviousPage(roomID, clickedTime, divEnd, url) {
 					message: perHistory,
 					time: perTime,
 				};
-				let searchInfo = { time: perFullTime, history: perHistory };
-				lastMassage.push(searchInfo);
-				result = { messageInfo: lastMassage, foundQty: foundQty };
+
 				if (perName == userInfo["name"]) {
 					buildHistoryMessageBox(fullInfo, divEnd);
 				} else {
 					buildFriendHistoryMessageBox(fullInfo, divEnd);
 				}
 			}
-			let perImg = img[length];
-			let perFullTime = fullTime[length];
-			let perName = user[length];
-			let perTime = time[length];
-			let perHistory = history[length];
-			let fullInfo = {
-				user_Img: perImg,
-				message: perHistory,
-				time: perTime,
-			};
+		} else {
+			for (let length = 0; length < foundQty; length++) {
+				let perImg = img[length];
+				let perName = user[length];
+				let perTime = time[length];
+				let perHistory = history[length];
+				let fullInfo = {
+					user_Img: perImg,
+					message: perHistory,
+					time: perTime,
+				};
 
-			if (perName == userInfo["name"]) {
-				buildHistoryMessageBox(fullInfo, divEnd);
-			} else {
-				buildFriendHistoryMessageBox(fullInfo, divEnd);
+				if (perName == userInfo["name"]) {
+					buildHistoryMessageBox(fullInfo, divEnd);
+				} else {
+					buildFriendHistoryMessageBox(fullInfo, divEnd);
+				}
 			}
+			console.log(foundQty + "33333");
+			console.log(history, time);
 		}
-	} else {
-		for (let length = 0; length < foundQty; length++) {
-			let perImg = img[length];
-			let perName = user[length];
-			let perTime = time[length];
-			let perHistory = history[length];
-			let fullInfo = {
-				user_Img: perImg,
-				message: perHistory,
-				time: perTime,
-			};
-
-			if (perName == userInfo["name"]) {
-				buildHistoryMessageBox(fullInfo, divEnd);
-			} else {
-				buildFriendHistoryMessageBox(fullInfo, divEnd);
-			}
-		}
-		console.log(foundQty + "33333");
 	}
 }

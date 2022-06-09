@@ -32,9 +32,9 @@
 			integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
 			crossorigin="anonymous"
 		></script>
-		<div class="loading__page">
+		<!-- <div class="loading__page">
 			<img class="load__img" src="/static/img/load.png" alt="" />
-		</div>
+		</div> -->
 		<div class="wholeSection">
 			<div class="nav--functionbar">
 				<div class="nav--functionbar__addperson">
@@ -58,14 +58,13 @@
 						alt=""
 					/>
 				</div>
-				<div class="nav--functionbar__setting">
-					<!-- <img class="nav--functionbar__hosenwhite" src="" alt="" /> -->
+				<!-- <div class="nav--functionbar__setting">
 					<img
 						class="setting__icon"
 						src="https://d3azm2sig5lpkh.cloudfront.net/img/set.png"
 						alt=""
 					/>
-				</div>
+				</div> -->
 			</div>
 			<div class="room--personSection">
 				<div class="room--personSection__title">
@@ -103,9 +102,10 @@
 					/>
 				</div>
 				<div class="room--personSection__chatInfoOuter">
-					<div class="room--personSection__chatInfo">
+					<div class="room--personSection__chatInfo__user">
 						<img class="personSection__chatInfo__personImg" src="" alt="" />
 						<div class="personSection__chatInfo__roomName"></div>
+						<div class="user__info">User</div>
 					</div>
 				</div>
 				<div class="room--personSection__emailOuter"></div>
@@ -142,7 +142,7 @@
 						<div class="chattingRoom--chatPerson__name"></div>
 						<!-- <div class="chattingRoom--chatPerson__status">Online</div> -->
 						<div class="chattingRoom--chatPerson__toolIcon">
-							<div class="chatPerson__toolIcon__paint">
+							<!-- <div class="chatPerson__toolIcon__paint">
 								<img
 									class="toolIcon__whiteBorder"
 									src="https://d3azm2sig5lpkh.cloudfront.net/img/round.png"
@@ -153,7 +153,7 @@
 									src="https://d3azm2sig5lpkh.cloudfront.net/img/pen1.png"
 									alt=""
 								/>
-							</div>
+							</div> -->
 							<div class="chatPerson__toolIcon__search">
 								<img
 									class="toolIcon__whiteBorder"
@@ -166,7 +166,7 @@
 									alt=""
 								/>
 							</div>
-							<div class="chatPerson__toolIcon__delete">
+							<!-- <div class="chatPerson__toolIcon__delete">
 								<img
 									class="toolIcon__whiteBorder__trash"
 									src="https://d3azm2sig5lpkh.cloudfront.net/img/round.png"
@@ -177,8 +177,8 @@
 									src="https://d3azm2sig5lpkh.cloudfront.net/img/delete.png"
 									alt=""
 								/>
-							</div>
-							<div class="chatPerson__toolIcon__star">
+							</div> -->
+							<!-- <div class="chatPerson__toolIcon__star">
 								<img
 									class="toolIcon__whiteBorder__star"
 									src="https://d3azm2sig5lpkh.cloudfront.net/img/round.png"
@@ -189,7 +189,7 @@
 									src="https://d3azm2sig5lpkh.cloudfront.net/img/star.png"
 									alt=""
 								/>
-							</div>
+							</div> -->
 						</div>
 						<div class="history__search">
 							<img
@@ -330,31 +330,20 @@
 										alt=""
 									/>
 								</div>
+								<div class="brushes__box__exit">
+									<img
+										class="brushes__box__exitImg"
+										src="https://d3azm2sig5lpkh.cloudfront.net/img/log-out.png"
+										alt=""
+									/>
+								</div>
 							</div>
 						</div>
 						<canvas id="paint-canvas" width="800px" height="360px"></canvas>
 					</div>
 					<div class="chattingRoom--content">
-						<!-- <div class="chattingRoom--content__user">
-						<img class="chattingRoom--content__userImg" src="" alt="" />
-						<div class="chattingRoom--content__textBox">
-							<p class="content__textBox__texting">這是示範版本</p>
-						</div>
-						<div class="chattingRoom--content__messageTime">09:00</div>
-					</div> -->
-						<!-- <div class="chattingRoom--content__person">
-						<img
-							class="chattingRoom--content__personImg"
-							src="/static/img/barysan.png"
-							alt=""
-						/>
-						<div class="chattingRoom--content__personTextBox">
-							<p class="content__textBox__personTexting">這是示範版本</p>
-						</div>
-						<div class="chattingRoom--content__personMessageTime">09:00</div>
-					</div> -->
 						<div class="history__chatInfoOuter">
-							<div class="history__chatInfo">
+							<!-- <div class="history__chatInfo">
 								<img
 									class="history__chatInfo__personImg"
 									src="https://d3azm2sig5lpkh.cloudfront.net/img/barysan.png"
@@ -367,7 +356,7 @@
 								<div class="history__chatInfo__latestMessage">
 									我是歷史訊息~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 					<div class="type--box">
@@ -380,6 +369,16 @@
 						</div>
 					</div>
 					<div class="messageBar">
+						<div class="messageBar---tool__content">
+							<div class="messageBar---tool__round">
+								<img
+									class="messageBar---tool__painting"
+									src="https://d3azm2sig5lpkh.cloudfront.net/img/pen1.png"
+									alt=""
+								/>
+							</div>
+							<p class="toolIcon__paint__text">Paint</p>
+						</div>
 						<div class="messageBar__tool">
 							<img
 								class="messageBar__tool__border"
@@ -440,5 +439,5 @@
 	<script src="{{url_for('static', filename='/js/chatList.js')}}"></script>
 	<script src="{{url_for('static', filename='/js/painting.js')}}"></script>
 	<script src="{{url_for('static', filename='/js/historySearch.js')}}"></script>
-	<script src="{{url_for('static', filename='/js/socket.js')}}"></script>
+	<script src="{{url_for('static', filename='/js/tool.js')}}"></script>
 </html>

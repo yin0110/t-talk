@@ -231,8 +231,18 @@ hr {
 	align-items: center;
 }
 .login--form__google {
-	margin-right: 15px;
+	background-color: hsl(0, 0%, 96%);
+	/* hsl(0, 0%, 96%); */
+	width: 310px;
+	height: 51px;
+	display: flex;
+	border-radius: 5px;
+	justify-content: center;
+	align-items: center;
 }
+/* .login--form__google {
+	margin-right: 15px;
+} */
 
 .pictureBoard {
 	margin-top: -42px;

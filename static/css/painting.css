@@ -133,12 +133,12 @@
 .brushes__box {
 	margin-top: 35px;
 	width: 35px;
-	height: 180px;
+	height: 220px;
 	background-color: #ffffff;
 	border-radius: 0px 5px 5px 0px;
 	box-shadow: 1.5px 1.5px 1.5px rgba(0, 0, 0, 0.1);
 	display: grid;
-	grid-row: 1fr 1fr 1fr 1fr 1fr;
+	grid-row: 1fr 1fr 1fr 1fr 1fr 1fr;
 	justify-content: center;
 	z-index: 4;
 	position: absolute;
@@ -213,4 +213,18 @@
 	cursor: crosshair;
 	border-radius: 5px;
 	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.brushes__box__exitImg:hover {
+	filter: brightness(0) invert(0.15);
+	cursor: pointer;
+}
+
+.brushes__box__exitImg {
+	margin-top: -10px;
+	width: 21.5px;
+	height: 20px;
+	filter: brightness(0) invert(0.65);
+	cursor: pointer;
+	margin-left: -1.5px;
 }

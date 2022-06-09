@@ -272,3 +272,39 @@
 	position: relative;
 	margin-bottom: 0.5em;
 }
+.messageBar---tool__content {
+	width: 100px;
+	height: 80px;
+	background-color: #ffff;
+	display: flex;
+	flex-direction: column;
+	border-radius: 20px 20px 20px 0px;
+	bottom: 80px;
+	z-index: 4;
+	justify-content: center;
+	margin-left: 20px;
+	align-items: center;
+	position: absolute;
+	display: none;
+}
+.messageBar---tool__round {
+	background-color: #ebf4ff;
+	border-radius: 100px;
+	width: 42px;
+	height: 42px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+.messageBar---tool__painting {
+	width: 20px;
+	height: 20px;
+}
+.toolIcon__paint__text {
+	font-size: 11px;
+	margin-top: 5px;
+}
+.messageBar---tool__painting:hover {
+	filter: invert(0.32) sepia(1) saturate(5) hue-rotate(75deg);
+}
