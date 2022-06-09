@@ -3,11 +3,12 @@ from flask_socketio import SocketIO, emit, join_room
 from datetime import datetime, date
 from index_page_Handle import index_handler
 from member_chatroom_info import chatroom_info
-from index_page_handle_modle import check_token
+from index_page_handle_modle import check_token, member
 from database import dbRDS
 from db_history import history
 from history_search_route import search_handler
 from history_search_modle import elastic_db
+import asyncio
 import jwt
 import pytz
 
@@ -72,8 +73,14 @@ def send_back_data(message):
     user_info_for_room = {"message": message_content,
                           "time": current_time, "typing_user": typing_user, "user_Img": room_user_img}
     emit("full_message", user_info_for_room, to=room)
-    history.store_history(room, typing_user, detail_time, message_content)
-    elastic_db.put_doc(room, typing_user, detail_time, message_content)
+    async def store_data():
+        history.store_history(room, typing_user, detail_time, message_content)
+        elastic_db.put_doc(room, typing_user, detail_time, message_content)
+        # member.store_rds_history(room, typing_user, detail_time, message_content)
+    asyncio.run(store_data())
+    # history.store_history(room, typing_user, detail_time, message_content)
+    # elastic_db.put_doc(room, typing_user, detail_time, message_content)
+    # member.store_rds_history(room, typing_user, detail_time, message_content)
 
 
 @socketio.on("draw", namespace="/talk")
@@ -114,4 +121,4 @@ def handle_typing(type_info):
 
 
 if __name__ == '__main__':
-    socketio.run(app, port=4000, debug=True)
+    socketio.run(app, host="0.0.0.0", port=4000, debug=True)

@@ -136,67 +136,85 @@ async function loadHistory(roomID) {
 	}
 
 	let result = null;
-	if (divExtend.id == "top__extend__div") {
-		let options = {
-			root: null,
-			rootmargin: "-5px",
-			threshold: 0.05,
-		};
-		const observer = new IntersectionObserver(topChat, options);
-		const target = divTop;
-		observer.observe(target);
-		let messageQty = result["foundQty"];
-		function topChat(entries, ob) {
-			entries.forEach(async (entry) => {
-				if (entry.isIntersecting) {
+	// if (divExtend.id == "top__extend__div") {
+	// 	let options = {
+	// 		root: null,
+	// 		rootmargin: "-5px",
+	// 		threshold: 0.05,
+	// 	};
+	// 	const observer = new IntersectionObserver(topChat, options);
+	// 	const target = divTop;
+	// 	observer.observe(target);
+	// 	let messageQty = result["foundQty"];
+	// 	console.log(result);
+	// 	function topChat(entries, ob) {
+	// 		entries.forEach(async (entry) => {
+	// 			if (entry.isIntersecting) {
+	// 				if (messageQty == 21) {
+	// 					let time = result["messageInfo"]["time"];
+	// 					let url = `/api/load_previous_history/${roomID}/${time}`;
+	// 					let firstDiv = chatRoomSpace.childNodes[2];
+	// 					let value = firstDiv.offsetTop;
+	// 					result = await buildHistoryNextPage(
+	// 						roomID,
+	// 						clickedTime,
+	// 						divExtend,
+	// 						url
+	// 					);
+	// 					chatRoomSpace.scrollTop = firstDiv.offsetTop - value;
+	// 				} else {
+	// 					ob.unobserve(target);
+	// 				}
+	// 			}
+	// 		});
+	// 	}
+	// } else {
+	divExtend.id = "top__extend__div";
+	let options = {
+		root: null,
+		rootmargin: "-5px",
+		threshold: 0.05,
+	};
+	const observer = new IntersectionObserver(topChat, options);
+	const target = divTop;
+	observer.observe(target);
+	let flag = false;
+	function topChat(entries, ob) {
+		entries.forEach(async (entry) => {
+			if (entry.isIntersecting) {
+				if (flag == false) {
+					let url = `/api/load_previous_history/${roomID}/${fullTime[0]}`;
+					result = await buildPreviousPage(roomID, fullTime[0], divExtend, url);
+					flag = true;
+					console.log(result);
+				} else {
+					// ob.unobserve(target);
+					console.log(result);
+
+					let messageQty = result["foundQty"];
+					console.log(messageQty);
 					if (messageQty == 21) {
-						let time = result["messageInfo"]["time"];
+						let time = result["messageInfo"][0]["time"];
+						console.log(time);
 						let url = `/api/load_previous_history/${roomID}/${time}`;
 						let firstDiv = chatRoomSpace.childNodes[2];
 						let value = firstDiv.offsetTop;
-						result = await buildHistoryNextPage(
-							roomID,
-							clickedTime,
-							divExtend,
-							url
-						);
+						result = await buildPreviousPage(roomID, time, divExtend, url);
 						chatRoomSpace.scrollTop = firstDiv.offsetTop - value;
 					} else {
+						let time = result["messageInfo"][0]["time"];
+						let url = `/api/load_previous_history/${roomID}/${time}`;
+						let firstDiv = chatRoomSpace.childNodes[2];
+						let value = firstDiv.offsetTop;
+						result = await buildPreviousPage(roomID, time, divExtend, url);
+						chatRoomSpace.scrollTop = firstDiv.offsetTop - value;
 						ob.unobserve(target);
 					}
 				}
-			});
-		}
-	} else {
-		divExtend.id = "top__extend__div";
-		let options = {
-			root: null,
-			rootmargin: "-5px",
-			threshold: 0.05,
-		};
-		const observer = new IntersectionObserver(topChat, options);
-		const target = divTop;
-		observer.observe(target);
-		let flag = false;
-		function topChat(entries, ob) {
-			entries.forEach(async (entry) => {
-				if (entry.isIntersecting) {
-					if (flag == false) {
-						let url = `/api/load_previous_history/${roomID}/${fullTime[0]}`;
-						result = await buildPreviousPage(
-							roomID,
-							fullTime[0],
-							divExtend,
-							url
-						);
-						flag = true;
-					} else {
-						ob.unobserve(target);
-					}
-				}
-			});
-		}
+			}
+		});
 	}
+	// }
 }
 // for build chattingroom content interface
 async function buildChatRoom(e) {
@@ -264,6 +282,26 @@ async function buildPreviousPage(roomID, clickedTime, divEnd, url) {
 	let lastMassage = [];
 	if (foundQty == 21) {
 		for (let length = 0; length < foundQty - 1; length++) {
+			if (length == 0) {
+				let perImg = img[length];
+				let perFullTime = fullTime[length];
+				let perName = user[length];
+				let perTime = time[length];
+				let perHistory = history[length];
+				let fullInfo = {
+					user_Img: perImg,
+					message: perHistory,
+					time: perTime,
+				};
+				let searchInfo = { time: perFullTime, history: perHistory };
+				lastMassage.push(searchInfo);
+				result = { messageInfo: lastMassage, foundQty: foundQty };
+				if (perName == userInfo["name"]) {
+					buildHistoryMessageBox(fullInfo, divEnd);
+				} else {
+					buildFriendHistoryMessageBox(fullInfo, divEnd);
+				}
+			}
 			let perImg = img[length];
 			let perFullTime = fullTime[length];
 			let perName = user[length];
@@ -279,12 +317,6 @@ async function buildPreviousPage(roomID, clickedTime, divEnd, url) {
 				buildHistoryMessageBox(fullInfo, divEnd);
 			} else {
 				buildFriendHistoryMessageBox(fullInfo, divEnd);
-			}
-			if (length == 0) {
-				let searchInfo = { time: perFullTime, history: perHistory };
-				lastMassage.push(searchInfo);
-				nextPage = { messageInfo: lastMassage, foundQty: foundQty };
-				return nextPage;
 			}
 		}
 	} else {
@@ -305,7 +337,6 @@ async function buildPreviousPage(roomID, clickedTime, divEnd, url) {
 				buildFriendHistoryMessageBox(fullInfo, divEnd);
 			}
 		}
+		console.log(foundQty + "33333");
 	}
-	nextPage = { messageInfo: lastMassage, foundQty: foundQty };
-	return nextPage;
 }

@@ -11,6 +11,7 @@ class elastic_db:
             "time": time,
             "history": history
         }
+
         response = elastic_search.index(index="history", body=doc)
 
     def search_related_content(self, room_id, time):

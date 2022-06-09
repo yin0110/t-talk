@@ -12,8 +12,6 @@ class member:
             email = request.form["userEmail"]
             cnx = pool.get_connection()
             cur = cnx.cursor(dictionary=True)
-            # cur.execute(
-            #     "SELECT id, email FROM member_account WHERE email = %s AND password = %s", (email, password,))
             cur.execute(
                 "SELECT id, email, name, img, user_namespace FROM member_account JOIN member_info ON user_id=id WHERE email = %s AND password = %s", (email, password,))
             info = cur.fetchone()
@@ -61,7 +59,7 @@ class member:
                     "SELECT id, email FROM member_account WHERE email = %s", (email,))
                 info = cur.fetchone()
                 user_id = info["id"]
-                img = "/static/img/unknowuser.jpeg"
+                img = "https://d3azm2sig5lpkh.cloudfront.net/img/unknowuser.jpeg"
                 namespace = "/"+email
                 cur.execute("INSERT INTO member_info(name, user_id, img, user_namespace ) VALUES (%s, %s, %s, %s)",
                             (name, user_id, img, namespace))
@@ -76,6 +74,17 @@ class member:
         finally:
             cur.close()
             cnx.close()
+
+    def store_rds_history(self, room_id, user, user_time, user_history):
+        try:
+            cnx = pool.get_connection()
+            cur = cnx.cursor(dictionary=True)
+            cur.execute(
+                "INSERT INTO member_history(room_id_history, user, user_time, user_history) VALUES (%s, %s, %s, %s)", (room_id, user, user_time, user_history))
+            cnx.commit()
+        except:
+            print("error")
+    
 
     def sign_out(self):
         data = jsonify({"ok": True})

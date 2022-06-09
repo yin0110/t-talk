@@ -4,43 +4,50 @@ import yaml
 import firebase_admin
 from firebase_admin import credentials, firestore
 from elasticsearch import Elasticsearch
-from elasticsearch_dsl import search
+# from elasticsearch_dsl import search
 # from redis import Redis
 import redis
+from redis import Redis
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 cred = credentials.Certificate("secret.json")
 firebase_admin.initialize_app(cred)
 
 # AWS RDS
 dbRDS = yaml.safe_load(open('secret.yaml'))
-pool = mysql.connector.pooling.MySQLConnectionPool(pool_name="mypool",
-                                                   pool_size=10,
-                                                   host=dbRDS["host"],
-                                                   user=dbRDS["user"],
-                                                   password=dbRDS["password"],
-                                                   database=dbRDS["db"])
 # pool = mysql.connector.pooling.MySQLConnectionPool(pool_name="mypool",
-#                                                    pool_size=3,
+#                                                    pool_size=10,
 #                                                    host=dbRDS["host"],
 #                                                    user=dbRDS["user"],
 #                                                    password=dbRDS["password"],
-#                                                    database=dbRDS["db"],
-#                                                    port=dbRDS["port"])
+#                                                    database=dbRDS["db"])
+pool = mysql.connector.pooling.MySQLConnectionPool(pool_name="mypool",
+                                                   pool_size=3,
+                                                   host=dbRDS["host"],
+                                                   user=dbRDS["user"],
+                                                   password=dbRDS["password"],
+                                                   database=dbRDS["db"],
+                                                   port=dbRDS["port"])
 
 
 # Firebase
 db = firestore.client()
 
 # Elastic search
-elastic_search = Elasticsearch(cloud_id=dbRDS["cloud_id"], http_auth=(
+elastic_search = Elasticsearch(cloud_id=dbRDS["cloud_id"], basic_auth=(
     "elastic", dbRDS["elastic_passowrd"]))
 
 
 elastic_search.info()
 
 
-redis = redis.Redis(host="localhost", port=6379)
-
+# redis = redis.Redis(host="localhost", port=6379)
+redis = Redis(host=dbRDS["redis_host"], port=6379,
+              decode_responses=True, ssl=True, username=dbRDS["user"], password=dbRDS["password"])
+if redis.ping():
+    logging.info("Connected to Redis")
 
 # b = r.get("key")
 # print(b)
@@ -62,40 +69,30 @@ redis = redis.Redis(host="localhost", port=6379)
 # email = dbRDS["email"]
 # password = dbRDS["password"]
 
-mapping = """{
+mapping = {
     "mappings": {
         "properties": {
             "room_id": {"type": "integer"},
             "user": {"type": "keyword"},
-            "time": {"type": "integer"},
+            "time": {"type": "long"},
             "history": {"type": "text"}
         }
     }
-}"""
+}
 # client.indices.create(index="search")
-# b = elastic_search.indices.create(index='search', body=mapping)
+# b = elastic_search.indices.create(index='history', body=mapping)
 # print(b)
-# a = elastic_search.indices.delete(index="search")
+# a = elastic_search.indices.delete(index="history")
 # print(a)
 
-doc_1 = {
-    "room_id": 1,
-    "user": "/000",
-    "time": 20211011,
-    "history": "我來試試看看狀況"
-}
-doc_2 = {
-    "room_id": 1,
-    "user": "/000",
-    "time": 20211012,
-    "history": "測試2  好棒棒"
-}
 doc_4 = {
     "room_id": 1,
     "user": "/000",
     "time": 20211017,
     "history": "好好喔"
 }
+# b = elastic_search.index(index='history', body=doc_4)
+# print(b)
 dsl = {
     'query': {
         "ids": {

@@ -1,4 +1,3 @@
-from sqlalchemy import Time, true
 from database import db,  dbRDS
 from flask import *
 import firebase_admin
@@ -44,7 +43,7 @@ class history:
         user_info = get_user_info()
         time = int(time)
         result = db.collection("history").where(
-            "room_id", "==", room_id).order_by("user_time").end_before({"user_time": time}).limit(21).stream()
+            "room_id", "==", room_id).start_after({"user_time": time}).order_by("user_time", direction=firestore.Query.DESCENDING).limit(21).stream()
         history_list = []
         for data in result:
             history_list.append(data.to_dict())

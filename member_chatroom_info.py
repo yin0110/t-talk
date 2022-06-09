@@ -104,7 +104,7 @@ def show_friend():
         cur = cnx.cursor(dictionary=True)
         try:
             redisInfo = json.loads(redis.get(user_1))
-            if redisInfo != None:
+            if redisInfo != [] or None:
                 data = jsonify({"data": redisInfo})
                 return data, 200
             else:
