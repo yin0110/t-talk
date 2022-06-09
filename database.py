@@ -44,8 +44,7 @@ elastic_search.info()
 
 
 # redis = redis.Redis(host="localhost", port=6379)
-redis = Redis(host=dbRDS["redis_host"], port=6379,
-              decode_responses=True, ssl=True, username=dbRDS["user"], password=dbRDS["password"])
+redis = redis.Redis(host=dbRDS["redis_host"], port=6379)
 if redis.ping():
     logging.info("Connected to Redis")
 
