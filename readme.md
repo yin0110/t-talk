@@ -18,11 +18,11 @@ Here's the website : https://www.t-talk.site/
 
 #### Login
 
-Authenticate user with JSON Web Token & set middleware.
+- Authenticate user with JSON Web Token & set middleware.
 
 #### Use Socket IO to achieve real-time chat
 
-User can chat with friends and detect friends' typing event.
+- User can chat with friends and detect friends' typing event.
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/yin0110/t-talk/main/static/img/chat.gif" alt="drawing"/>
