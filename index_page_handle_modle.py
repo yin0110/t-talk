@@ -59,7 +59,7 @@ class member:
                     "SELECT id, email FROM member_account WHERE email = %s", (email,))
                 info = cur.fetchone()
                 user_id = info["id"]
-                img = "https://d3azm2sig5lpkh.cloudfront.net/img/unknowuser.jpeg"
+                img = "https://my-message-board.s3.amazonaws.com/img/unknowuser.jpeg"
                 namespace = "/"+email
                 cur.execute("INSERT INTO member_info(name, user_id, img, user_namespace ) VALUES (%s, %s, %s, %s)",
                             (name, user_id, img, namespace))
@@ -84,7 +84,6 @@ class member:
             cnx.commit()
         except:
             print("error")
-    
 
     def sign_out(self):
         data = jsonify({"ok": True})

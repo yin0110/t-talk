@@ -119,24 +119,40 @@
 }
 .room--personSection__chatInfo__user {
 	display: flex;
-	flex-direction: row;
+	flex-direction: row-reverse;
 	/* margin-top: 35px; */
 	width: 385px;
 	height: 75px;
 	position: relative;
 }
+.personSection__chatInfo__userImg {
+	width: 54px;
+	height: 54px;
+	border-radius: 100px;
+	/* margin-left: 20px; */
+	margin-top: 14px;
+	margin-right: 27px;
+}
+.personSection__chatInfo__userName {
+	margin-left: 22px;
+	font-size: 15px;
+	font-weight: 700;
+	width: 300px;
+	margin-top: 23px;
+}
 .user__info {
 	position: absolute;
-	margin-top: 25px;
-	margin-left: 310px;
-	padding-left: 5px;
-	font-size: 14px;
+	margin-top: 52px;
+	/* margin-left: 16px; */
+	padding-left: 4px;
+	font-size: 12px;
 	font-weight: 700;
 	background-color: #14ae2e;
-	width: 40px;
-	height: 20px;
+	width: 35px;
+	height: 17px;
 	color: #ffff;
 	border-radius: 15px;
+	right: 327px;
 }
 .room--personSection__chatInfo:hover {
 	background-color: #e9eaf1;
@@ -177,7 +193,7 @@
 	display: flex;
 	font-size: 12px;
 	color: rgba(0, 0, 0, 0.7);
-	margin-top: 5px;
+	margin-top: 28px;
 	margin-left: 22px;
 	margin-bottom: 5px;
 	font-weight: 600;

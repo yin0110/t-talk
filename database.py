@@ -44,7 +44,7 @@ elastic_search.info()
 
 
 # redis = redis.Redis(host="localhost", port=6379)
-#elastic cache
+# elastic cache
 redis = redis.Redis(host=dbRDS["redis_host"], port=6379)
 
 

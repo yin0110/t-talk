@@ -73,14 +73,12 @@ def send_back_data(message):
     user_info_for_room = {"message": message_content,
                           "time": current_time, "typing_user": typing_user, "user_Img": room_user_img}
     emit("full_message", user_info_for_room, to=room)
+
     async def store_data():
         history.store_history(room, typing_user, detail_time, message_content)
         elastic_db.put_doc(room, typing_user, detail_time, message_content)
         # member.store_rds_history(room, typing_user, detail_time, message_content)
     asyncio.run(store_data())
-    # history.store_history(room, typing_user, detail_time, message_content)
-    # elastic_db.put_doc(room, typing_user, detail_time, message_content)
-    # member.store_rds_history(room, typing_user, detail_time, message_content)
 
 
 @socketio.on("draw", namespace="/talk")

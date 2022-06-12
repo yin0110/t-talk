@@ -12,13 +12,13 @@ async function get_user_info() {
 	if (statusCode["message"]) {
 		location.href = `/`;
 	} else {
-		username = statusCode["data"]["name"];
-		userImg = statusCode["data"]["img"];
+		let username = statusCode["data"]["name"];
+		let userImg = statusCode["data"]["img"];
 		userNamespace = statusCode["data"]["user_namespace"];
-		let mainUser = document.querySelector(".personSection__chatInfo__roomName");
+		let mainUser = document.querySelector(".chattingRoom--user__name");
 		mainUser.innerHTML = username;
-		mainUser.style.marginTop = "23px";
-		let mainImg = document.querySelector(".personSection__chatInfo__personImg");
+		// mainUser.style.marginTop = "23px";
+		let mainImg = document.querySelector(".chattingRoom--user__img");
 		mainImg.src = userImg;
 		buildUserInfo(username, userImg, userNamespace);
 	}

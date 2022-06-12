@@ -1,3 +1,5 @@
+let lastPage = null;
+
 async function buildChatFriendList_div(length, img, roomID, name) {
 	for (let infoLength = 0; infoLength < length; infoLength++) {
 		let perImg = img[infoLength];
@@ -135,7 +137,6 @@ async function loadHistory(roomID) {
 		}
 	}
 
-	let result = null;
 	// if (divExtend.id == "top__extend__div") {
 	// 	let options = {
 	// 		root: null,
@@ -184,31 +185,32 @@ async function loadHistory(roomID) {
 			if (entry.isIntersecting) {
 				if (flag == false) {
 					let url = `/api/load_previous_history/${roomID}/${fullTime[0]}`;
-					result = await buildPreviousPage(roomID, fullTime[0], divExtend, url);
+					await buildPreviousPage(roomID, fullTime[0], divExtend, url);
 					flag = true;
-					console.log(result);
 				} else {
 					// ob.unobserve(target);
-					console.log(result);
-
-					let messageQty = result["foundQty"];
-					console.log(messageQty);
-					if (messageQty == 21) {
-						let time = result["messageInfo"][0]["time"];
-						console.log(time);
-						let url = `/api/load_previous_history/${roomID}/${time}`;
-						let firstDiv = chatRoomSpace.childNodes[2];
-						let value = firstDiv.offsetTop;
-						result = await buildPreviousPage(roomID, time, divExtend, url);
-						chatRoomSpace.scrollTop = firstDiv.offsetTop - value;
-					} else {
-						let time = result["messageInfo"][0]["time"];
-						let url = `/api/load_previous_history/${roomID}/${time}`;
-						let firstDiv = chatRoomSpace.childNodes[2];
-						let value = firstDiv.offsetTop;
-						result = await buildPreviousPage(roomID, time, divExtend, url);
-						chatRoomSpace.scrollTop = firstDiv.offsetTop - value;
+					if (lastPage == undefined) {
 						ob.unobserve(target);
+					} else {
+						let messageQty = lastPage["foundQty"];
+						console.log(messageQty);
+						if (messageQty == 21) {
+							let time = lastPage["messageInfo"][0]["time"];
+							console.log(time);
+							let url = `/api/load_previous_history/${roomID}/${time}`;
+							let firstDiv = chatRoomSpace.childNodes[2];
+							let value = firstDiv.offsetTop;
+							await buildPreviousPage(roomID, time, divExtend, url);
+							chatRoomSpace.scrollTop = firstDiv.offsetTop - value;
+						} else {
+							let time = lastPage["messageInfo"][0]["time"];
+							let url = `/api/load_previous_history/${roomID}/${time}`;
+							let firstDiv = chatRoomSpace.childNodes[2];
+							let value = firstDiv.offsetTop;
+							await buildPreviousPage(roomID, time, divExtend, url);
+							chatRoomSpace.scrollTop = firstDiv.offsetTop - value;
+							ob.unobserve(target);
+						}
 					}
 				}
 			}
@@ -282,30 +284,18 @@ async function buildPreviousPage(roomID, clickedTime, divEnd, url) {
 		}
 		let foundQty = time.length;
 		let lastMassage = [];
+		console.log(foundQty);
 		if (foundQty == 21) {
 			for (let length = 0; length < foundQty - 1; length++) {
 				if (length == 0) {
-					let perImg = img[length];
 					let perFullTime = fullTime[length];
-					let perName = user[length];
-					let perTime = time[length];
 					let perHistory = history[length];
-					let fullInfo = {
-						user_Img: perImg,
-						message: perHistory,
-						time: perTime,
-					};
 					let searchInfo = { time: perFullTime, history: perHistory };
 					lastMassage.push(searchInfo);
-					result = { messageInfo: lastMassage, foundQty: foundQty };
-					if (perName == userInfo["name"]) {
-						buildHistoryMessageBox(fullInfo, divEnd);
-					} else {
-						buildFriendHistoryMessageBox(fullInfo, divEnd);
-					}
+					lastPage = { messageInfo: lastMassage, foundQty: foundQty };
 				}
 				let perImg = img[length];
-				let perFullTime = fullTime[length];
+				// let perFullTime = fullTime[length];
 				let perName = user[length];
 				let perTime = time[length];
 				let perHistory = history[length];
@@ -339,8 +329,8 @@ async function buildPreviousPage(roomID, clickedTime, divEnd, url) {
 					buildFriendHistoryMessageBox(fullInfo, divEnd);
 				}
 			}
-			console.log(foundQty + "33333");
-			console.log(history, time);
+			console.log(history);
+			lastPage = undefined;
 		}
 	}
 }

@@ -50,7 +50,8 @@ function buildSearchEmailContent(statusCode) {
 	friendNameBox.innerHTML = friendName;
 	let friendAddIconBox = document.createElement("img");
 	friendAddIconBox.className = "room--personSection__emailAdd";
-	friendAddIconBox.src = "/static/img/add-2.png";
+	friendAddIconBox.src =
+		"https://my-message-board.s3.amazonaws.com/img/add-2.png";
 	searchFriendBoxOuter.appendChild(searchFriendBox);
 	searchFriendBox.appendChild(friendImgBox);
 	searchFriendBox.appendChild(friendNameBox);

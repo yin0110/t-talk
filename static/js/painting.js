@@ -4,7 +4,6 @@ let flag = false;
 let paintDiv = document.querySelector(".chattingRoom--content__painting");
 let color = document.querySelector(".brushes__box__color");
 let colorBar = document.querySelector(".content__painting__color");
-let savePic = document.querySelector(".brushes__box__lineImg");
 let exit = document.querySelector(".brushes__box__exit");
 // let toolItem = null;
 
@@ -17,8 +16,6 @@ pencilIcon.addEventListener("click", choosePencil);
 let eraserIcon = document.querySelector(".brushes__box__eraser");
 eraserIcon.addEventListener("click", chooseEraser);
 let colorFlag = false;
-let charFriend = document.querySelector(".chattingRoom--chatPerson__name");
-let roomID = charFriend.id;
 
 //choose pencil
 function choosePencil() {
@@ -40,6 +37,7 @@ function openPainting() {
 		paintDiv.style.display = "block";
 		flag = true;
 		toolBox.style.display = "none";
+		startDraw();
 
 		// openToolBar();
 	} else {
@@ -86,7 +84,11 @@ function selectColor(e) {
 }
 
 //canvas
-window.onload = function () {
+function startDraw() {
+	// window.onload = function () {
+	let charFriend = document.querySelector(".chattingRoom--chatPerson__name");
+	let roomID = charFriend.id;
+	let savePic = document.querySelector(".brushes__box__lineImg");
 	let canvas = document.querySelector("#paint-canvas");
 	savePic.addEventListener("click", function () {
 		savePic.setAttribute("download", "img.png");
@@ -94,8 +96,14 @@ window.onload = function () {
 			.toDataURL("image/png")
 			.replace("image/png", "image/octet-stream");
 		window.location.href = saveImg;
-		// savePic.download = "IMAGE.PNG";
 	});
+
+	// const downloadLink = document.querySelector(".brushes__box__lineImg");
+	// downloadLink.addEventListener("click", function () {
+	// 	downloadLink.href = canvas.toDataURL("image/png");
+	// 	downloadLink.download = "pic";
+	// });
+
 	// let drawing = false;
 	let socketChat = io("/talk", {
 		secure: true,
@@ -232,4 +240,4 @@ window.onload = function () {
 		);
 		context.restore();
 	});
-};
+}

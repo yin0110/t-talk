@@ -57,20 +57,29 @@ async function signUpOrRegister(e) {
 		formData.append("userName", userName);
 		formData.append("userEmail", userEmail);
 		formData.append("userPassword", userPassword);
-		let url = `/api/usr`;
-		let accessMethod = "POST";
-		let fetchInfo = await fetch(url, {
-			method: accessMethod,
-			body: formData,
-		});
-		let statusCode = await fetchInfo.json();
-		if (statusCode["message"]) {
-			welcomeDetail.innerHTML = "Email already existed !";
-			welcomeDetail.style.color = "red";
+		if (
+			userEmail.search(
+				/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/
+			) != -1
+		) {
+			let url = `/api/usr`;
+			let accessMethod = "POST";
+			let fetchInfo = await fetch(url, {
+				method: accessMethod,
+				body: formData,
+			});
+			let statusCode = await fetchInfo.json();
+			if (statusCode["message"]) {
+				welcomeDetail.innerHTML = "Email already existed !";
+				welcomeDetail.style.color = "red";
+			} else {
+				loginAccount();
+				welcomeDetail.innerHTML = "Sign up successfully ! Please login";
+				welcomeDetail.style.color = "#00854a";
+			}
 		} else {
-			loginAccount();
-			welcomeDetail.innerHTML = "Sign up successfully ! Please login";
-			welcomeDetail.style.color = "#00854a";
+			welcomeDetail.innerHTML = "Please enter correct email !";
+			welcomeDetail.style.color = "red";
 		}
 	} else {
 		let userEmail = emailInput.value;

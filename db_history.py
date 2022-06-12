@@ -52,6 +52,7 @@ class history:
             return history_list.get("user_time")
         history_list.sort(key=get_time)
         data = jsonify({"data": history_list, "user": user_info})
+        print(history_list, time)
         return data
 
     def load_friend_list_history(self, room_id):

@@ -187,10 +187,12 @@
 
 .brushes__box__lineImg {
 	margin-top: -10px;
-	width: 18px;
-	height: 18px;
 	filter: brightness(0) invert(0.65);
-	cursor: pointer;
+	width: 17.5px;
+	height: 16.5px;
+	filter: brightness(0) invert(0.65);
+	margin-bottom: 1px;
+	margin-left: 1px;
 }
 
 .brushes__box__clearImg {
