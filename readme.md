@@ -1,7 +1,7 @@
 # T-Talk
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/yin0110/t-talk/new/static/img/logo.png" alt="drawing" width="86.45px"/>
+<img src="https://raw.githubusercontent.com/yin0110/t-talk/new/static/img/logo.png" alt="drawing" width="95px"/>
 </p>
 T-Talk is an online communication website that provides a live transmission of text messages
 to friends.
@@ -9,7 +9,7 @@ to friends.
 ## Demo
 
 Here's the website : https://www.t-talk.site/
-Test account:
+</br>Test account:
 
 - User : test@test.com
 - Password : 123456
