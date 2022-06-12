@@ -50,7 +50,7 @@ def chat_room():
 def join(room_id):
     room = room_id
     join_room(room)
-    # a = request.sid
+    user_socket_id["aaa"] = request.sid
     # print(a)
     # emit("message", "ok", to=room)
 
@@ -77,7 +77,7 @@ def send_back_data(message):
     async def store_data():
         history.store_history(room, typing_user, detail_time, message_content)
         elastic_db.put_doc(room, typing_user, detail_time, message_content)
-        # member.store_rds_history(room, typing_user, detail_time, message_content)
+    # member.store_rds_history(room, typing_user, detail_time, message_content)
     asyncio.run(store_data())
 
 

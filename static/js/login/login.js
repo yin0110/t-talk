@@ -27,7 +27,7 @@ function registerAccount() {
 	register.style.display = "none";
 	login.style.display = "block";
 	loginButton.innerHTML = "Sign Up Now";
-	hrText.innerHTML = "or sign up with";
+	hrText.innerHTML = "Have a good day !";
 	hrDiv.style.marginTop = "16px";
 }
 
@@ -42,7 +42,7 @@ function loginAccount() {
 	login.style.display = "none";
 	loginButton.innerHTML = "Login Now";
 	loginButton.style.display = "block";
-	hrText.innerHTML = "or login with";
+	hrText.innerHTML = "Have a good day !";
 	hrDiv.style.marginTop = "25px";
 }
 

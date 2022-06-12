@@ -96,6 +96,12 @@ Here's the website : https://www.t-talk.site/
 - JavaScript
 - AJAX
 
+## Contact
+
+💻 Yin Chun Chuang
+
+📧 Email: blackbest_0110@hotmail.com
+
 <!-- #### Key Points
 
 - Use Socket IO to achieve real-time chat and use room & private room concept to create chatroom & detect the typing event.
