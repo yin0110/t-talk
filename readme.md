@@ -35,7 +35,9 @@ Here's the website : https://www.t-talk.site/
 <p align="center">
 <img src="https://raw.githubusercontent.com/yin0110/t-talk/main/static/img/paint.gif" alt="drawing"/>
 </p>
+
 #### Efficiency search by Elasticsearch
+
 - Support keywords searching to find history message.
 
 <p align="center">
