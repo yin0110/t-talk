@@ -14,20 +14,32 @@ Here's the website : https://www.t-talk.site/
 - User : test@test.com
 - Password : 123456
 
-Chat:
+## Main Features
+
+#### Login
+
+Authenticate user with JSON Web Token & set middleware.
+
+#### Use Socket IO to achieve real-time chat
+
+User can chat with friends and detect friends' typing event.
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/yin0110/t-talk/main/static/img/chat.gif" alt="drawing"/>
 </p>
 
-Search history message:
+#### Use Canvas & Socket IO to do online drawing board
+
+- Provide drawing & changing colors & eraser & downloading function.
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/yin0110/t-talk/main/static/img/paint.gif" alt="drawing"/>
+</p>
+#### Efficiency search by Elasticsearch
+- Support keywords searching to find history message.
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/yin0110/t-talk/main/static/img/search.gif" alt="drawing"/>
-</p>
-Draw:
-<p align="center">
-<img src="https://raw.githubusercontent.com/yin0110/t-talk/main/static/img/paint.gif" alt="drawing"/>
 </p>
 
 ## Architecture
@@ -71,44 +83,16 @@ Draw:
 
 - Git/GitHub
 
+#### Design Pattern
+
+- Server code in MVC
+
 ## Front-End Technique
 
 - HTML
 - CSS
 - JavaScript
 - AJAX
-
-## Key Points
-
-- Socket IO
-- Canvas
-- Elasticsearch
-- server MVC
-
-## Main Features
-
-Login
-
-- Authenticate user with JSON Web Token & set middleware.
-
-Chatroom
-
-- Invite friends to chatroom by adding their email.
-- Detect friends typing event.
-- Send emoji to friends.
-- Search friend in friends list
-
-Drawing board
-
-- Online drawing with friends
-
-Chat history
-
-- Users can find their history message in chatroom
-
-Search history
-
-- Support keywords searching to find history message.
 
 <!-- #### Key Points
 
