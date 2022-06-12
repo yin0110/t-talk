@@ -1,7 +1,7 @@
 # T-Talk
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/yin0110/t-talk/new/static/img/logo.png" alt="drawing" width="95px"/>
+<img src="https://raw.githubusercontent.com/yin0110/t-talk/main/static/img/logo.png" alt="drawing" width="95px"/>
 </p>
 T-Talk is an online communication website that provides a live transmission of text messages
 to friends.
@@ -17,24 +17,24 @@ Here's the website : https://www.t-talk.site/
 Chat:
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/yin0110/t-talk/new/static/img/chat.gif" alt="drawing"/>
+<img src="https://raw.githubusercontent.com/yin0110/t-talk/main/static/img/chat.gif" alt="drawing"/>
 </p>
 
 Search history message:
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/yin0110/t-talk/new/static/img/search.gif" alt="drawing"/>
+<img src="https://raw.githubusercontent.com/yin0110/t-talk/main/static/img/search.gif" alt="drawing"/>
 </p>
 Draw:
 <p align="center">
-<img src="https://raw.githubusercontent.com/yin0110/t-talk/new/static/img/paint.gif" alt="drawing"/>
+<img src="https://raw.githubusercontent.com/yin0110/t-talk/main/static/img/paint.gif" alt="drawing"/>
 </p>
 
 ## Architecture
 
 - Sever Architecture
 
-<img src="https://raw.githubusercontent.com/yin0110/t-talk/new/static/img/structure.png" alt="drawing"/>
+<img src="https://raw.githubusercontent.com/yin0110/t-talk/main/static/img/structure.png" alt="drawing"/>
 
 ## Backend Technique
 
