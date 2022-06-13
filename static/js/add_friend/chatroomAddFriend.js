@@ -11,6 +11,7 @@ let searchFriendButton = document.querySelector(
 );
 let personSection = document.querySelector(".room--personSection");
 plusIcon.addEventListener("click", addFriend);
+email.addEventListener("keypress", addFriendKeypress);
 
 //nav--functionbar add friend
 function addFriend() {
@@ -22,6 +23,24 @@ function addFriend() {
 		".room--personSection__emailOuter"
 	);
 	searchFriendBoxOuter.innerHTML = "";
+}
+
+async function addFriendKeypress(e) {
+	if (e.key == "Enter") {
+		e.preventDefault();
+		let friendEmail = "/" + email.value;
+		let url = `/api/usr_namespace?namespace=${friendEmail}`;
+		let accessMethod = "GET";
+		let fetchInfo = await fetch(url, {
+			method: accessMethod,
+		});
+		let statusCode = await fetchInfo.json();
+		if (statusCode["message"]) {
+			buildUserUnknow();
+		} else {
+			buildSearchEmailContent(statusCode);
+		}
+	}
 }
 
 //personSection search friends function

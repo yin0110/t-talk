@@ -279,7 +279,6 @@ async function buildPreviousPage(roomID, clickedTime, divEnd, url) {
 		}
 		let foundQty = time.length;
 		let lastMassage = [];
-		console.log(foundQty);
 		if (foundQty == 21) {
 			for (let length = 0; length < foundQty - 1; length++) {
 				if (length == 0) {
@@ -324,7 +323,6 @@ async function buildPreviousPage(roomID, clickedTime, divEnd, url) {
 					buildFriendHistoryMessageBox(fullInfo, divEnd);
 				}
 			}
-			console.log(history);
 			lastPage = undefined;
 		}
 	}

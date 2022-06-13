@@ -60,4 +60,4 @@ def handle_typing(type_info):
 
 
 if __name__ == '__main__':
-    socketio.run(app, host="0.0.0.0", port=4000)
+    socketio.run(app, host="0.0.0.0", port=4000, debug=True)

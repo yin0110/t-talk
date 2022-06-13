@@ -39,7 +39,7 @@ elastic_search = Elasticsearch(cloud_id=dbRDS["cloud_id"], basic_auth=(
     "elastic", dbRDS["elastic_passowrd"]))
 
 
-# local Redis
+# # local Redis
 # redis = redis.Redis(host="localhost", port=6379)
 
 # AWS elasticache

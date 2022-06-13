@@ -206,7 +206,7 @@ async function loadSearchHistory(roomID, clickedTime, clickedHistory) {
 							topExtendDiv,
 							url
 						);
-						console.log(result);
+						// console.log(result);
 						chatroomContnet.scrollTop = firstDiv.offsetTop - value;
 						flag = true;
 					} else {

@@ -27,7 +27,6 @@ async function get_user_info() {
 get_user_info();
 
 let signOutFlag = false;
-console.log(signOutBox);
 signOut.addEventListener("click", openSignOut);
 function openSignOut() {
 	if (signOutFlag == false) {
