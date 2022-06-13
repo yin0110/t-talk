@@ -38,10 +38,10 @@ class event:
         user_info_for_room = {"message": message_content,
                               "time": current_time, "typing_user": typing_user, "user_Img": room_user_img}
         join_room(room)
-        if message["message"] == "first-connect":
-            print("ok")
-        else:
-            emit("full_message", user_info_for_room, to=room)
+        # if message["message"] == "first-connect":
+        #     print("ok")
+        # else:
+        emit("full_message", user_info_for_room, to=room)
 
         async def store_data():
             history.store_history(
