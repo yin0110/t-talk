@@ -9,7 +9,6 @@
 			rel="stylesheet"
 			href="{{url_for('static', filename='/css/login.css')}}"
 		/>
-		<!-- <link rel="stylesheet" href="../static/css/login.css" /> -->
 	</head>
 	<body>
 		<div class="outer">
@@ -40,12 +39,14 @@
 						class="login--form__emailInput"
 						type="text"
 						placeholder="test@test.com"
+						value="test@test.com"
 					/>
 					<label class="login--form__password" for="">Password</label>
 					<input
 						class="login--form__passwordInput"
 						type="password"
 						placeholder="123456"
+						value="123456"
 					/>
 					<div class="login--form__passwordSetting">
 						<!-- <div type="checkbox" class="form__passwordSetting__remember">
@@ -152,5 +153,4 @@
 		crossorigin="anonymous"
 	></script>
 	<script src="{{url_for('static', filename='/js/login/login.js')}}"></script>
-	<!-- <script src="../static/js/login.js"></script> -->
 </html>

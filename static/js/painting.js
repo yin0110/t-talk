@@ -86,6 +86,7 @@ function selectColor(e) {
 //canvas
 function startDraw() {
 	// window.onload = function () {
+
 	let charFriend = document.querySelector(".chattingRoom--chatPerson__name");
 	let roomID = charFriend.id;
 	let savePic = document.querySelector(".brushes__box__lineImg");
@@ -104,12 +105,11 @@ function startDraw() {
 	// 	downloadLink.download = "pic";
 	// });
 
-	// let drawing = false;
-	let socketChat = io("/talk", {
-		secure: true,
-		reconnect: true,
-		rejectUnauthorized: false,
+	let socketChat = io("/talk");
+	socketChat.emit("join", {
+		roomID: roomID,
 	});
+
 	let context = canvas.getContext("2d");
 	context.fillStyle = "#FFFFFF";
 	context.fillRect(0, 0, canvas.width, canvas.height);

@@ -3,7 +3,7 @@
 <p align="center">
 <img src="https://raw.githubusercontent.com/yin0110/t-talk/main/static/img/logo.png" alt="drawing" width="95px"/>
 </p>
-T-Talk is an online communication website that provides a live transmission of text messages
+T-Talk is an instant messenger website that provides a live transmission of text messages
 to friends.
 
 ## Demo
@@ -18,7 +18,7 @@ Here's the website : https://www.t-talk.site/
 
 #### Login
 
-- Authenticate user with JSON Web Token & set middleware.
+- Authenticate user with JSON Web Token & implemented by flask middleware
 
 #### Use Socket IO to achieve real-time chat
 
@@ -30,29 +30,31 @@ Here's the website : https://www.t-talk.site/
 
 #### Use Canvas & Socket IO to do online drawing board
 
-- Provide drawing & changing colors & eraser & downloading function.
+- Provide drawing & changing colors & eraser & downloading functions.
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/yin0110/t-talk/main/static/img/paint.gif" alt="drawing"/>
 </p>
 
-#### Efficiency search by Elasticsearch
+#### Search efficiently by Elasticsearch
 
-- Support keywords searching to find history message.
+- Support keywords & full-text searching to find history message.
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/yin0110/t-talk/main/static/img/search.gif" alt="drawing"/>
 </p>
 
-## Architecture
+#### Store friend list cache by ElasticCache
 
-- Sever Architecture
+- Load faster to improve user experience
+
+## System Architecture
 
 <img src="https://raw.githubusercontent.com/yin0110/t-talk/main/static/img/structure.png" alt="drawing"/>
 
 ## Backend Technique
 
-#### Infrastructure
+#### Deployment
 
 - Docker
 

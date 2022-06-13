@@ -1,9 +1,7 @@
-from database import db,  dbRDS
+from database import db
 from flask import *
-import firebase_admin
 from firebase_admin import firestore
-import jwt
-from index_page_handle_modle import get_user_info
+from model.index_page_model import get_user_info
 
 
 # add documents with auto ID
@@ -20,7 +18,6 @@ class history:
 
     def load_history(self, room_id):
         try:
-            # token = request.cookies.get('user_token')
             user_info = get_user_info()
             user_img = user_info["img"]
             user_ns = user_info["user_namespace"]

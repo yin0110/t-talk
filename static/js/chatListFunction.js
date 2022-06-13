@@ -234,13 +234,8 @@ async function buildChatRoom(e) {
 	chatFriendName.innerHTML = roomFriendName;
 	let painting = document.querySelector(".chattingRoom--content__painting");
 	painting.style.display = "none";
-	let socket = io("/talk", {
-		secure: true,
-		reconnect: true,
-		rejectUnauthorized: false,
-	});
+	let socket = io("/talk");
 	await loadHistory(roomID);
-	// socket.emit("message", { roomID: roomID });
 }
 
 async function buildPreviousPage(roomID, clickedTime, divEnd, url) {

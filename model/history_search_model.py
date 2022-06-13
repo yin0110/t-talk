@@ -1,6 +1,6 @@
 from flask import jsonify
 from database import elastic_search
-from index_page_handle_modle import get_user_info
+from model.index_page_model import get_user_info
 
 
 class elastic_db:
@@ -12,7 +12,7 @@ class elastic_db:
             "history": history
         }
 
-        response = elastic_search.index(index="history", body=doc)
+        elastic_search.index(index="history", body=doc)
 
     def search_related_content(self, room_id, time):
         query = {

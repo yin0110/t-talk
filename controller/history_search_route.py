@@ -1,4 +1,4 @@
-from history_search_modle import elastic_db
+from model.history_search_model import elastic_db
 from flask import *
 
 search_handler = Blueprint("search_handler", __name__)

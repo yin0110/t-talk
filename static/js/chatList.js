@@ -29,6 +29,8 @@ async function showChatFriends() {
 			).forEach((element) => {
 				element.addEventListener("click", async (e) => {
 					showChatRoom();
+					let roomID = e.currentTarget.id;
+					await joinRoom(roomID);
 					await buildChatRoom(e);
 				});
 			});
@@ -109,6 +111,8 @@ async function showFriendList() {
 		).forEach((element) => {
 			element.addEventListener("click", async (e) => {
 				showChatRoom();
+				let roomID = e.currentTarget.id;
+				await joinRoom(roomID);
 				await buildChatRoom(e);
 			});
 		});
@@ -207,9 +211,16 @@ async function showIndexList() {
 		).forEach((element) => {
 			element.addEventListener("click", async (e) => {
 				showChatRoom();
+				let roomID = e.currentTarget.id;
+				await joinRoom(roomID);
 				await buildChatRoom(e);
 			});
 		});
 	}
 }
 showIndexList();
+// async function joinRoom(roomID) {
+// 	socketChat = io("/talk");
+// 	socketChat.emit("join", { roomID: roomID });
+// 	console.log("ok");
+// }

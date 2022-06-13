@@ -2,14 +2,6 @@ from flask import *
 from database import pool, redis
 
 
-chatroom_info = Blueprint("chatroom_info", __name__)
-
-
-@chatroom_info.route("/api/usr_info", methods=["GET"])
-def handle_user_info_get():
-    return get_user_info()
-
-
 def get_user_info():
     try:
         user_id = request.args.get("user_id")
@@ -28,16 +20,6 @@ def get_user_info():
     finally:
         cur.close()
         cnx.close()
-
-
-@chatroom_info.route("/api/usr_namespace", methods=["GET"])
-def handle_user_namespace_get():
-    return get_friend_namesapce()
-
-
-@chatroom_info.route("/api/usr_namespace", methods=["POST"])
-def handle_user_namespace_post():
-    return add_friend()
 
 
 def get_friend_namesapce():
@@ -87,11 +69,6 @@ def add_friend():
     finally:
         cur.close()
         cnx.close()
-
-
-@chatroom_info.route("/api/usr_friends", methods=["GET"])
-def handle_user_friends_get():
-    return show_friend()
 
 
 def show_friend():
