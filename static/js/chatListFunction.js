@@ -136,40 +136,6 @@ async function loadHistory(roomID) {
 			buildFriendMessageBox(friendFullInfo);
 		}
 	}
-
-	// if (divExtend.id == "top__extend__div") {
-	// 	let options = {
-	// 		root: null,
-	// 		rootmargin: "-5px",
-	// 		threshold: 0.05,
-	// 	};
-	// 	const observer = new IntersectionObserver(topChat, options);
-	// 	const target = divTop;
-	// 	observer.observe(target);
-	// 	let messageQty = result["foundQty"];
-	// 	console.log(result);
-	// 	function topChat(entries, ob) {
-	// 		entries.forEach(async (entry) => {
-	// 			if (entry.isIntersecting) {
-	// 				if (messageQty == 21) {
-	// 					let time = result["messageInfo"]["time"];
-	// 					let url = `/api/load_previous_history/${roomID}/${time}`;
-	// 					let firstDiv = chatRoomSpace.childNodes[2];
-	// 					let value = firstDiv.offsetTop;
-	// 					result = await buildHistoryNextPage(
-	// 						roomID,
-	// 						clickedTime,
-	// 						divExtend,
-	// 						url
-	// 					);
-	// 					chatRoomSpace.scrollTop = firstDiv.offsetTop - value;
-	// 				} else {
-	// 					ob.unobserve(target);
-	// 				}
-	// 			}
-	// 		});
-	// 	}
-	// } else {
 	divExtend.id = "top__extend__div";
 	let options = {
 		root: null,
@@ -188,12 +154,11 @@ async function loadHistory(roomID) {
 					await buildPreviousPage(roomID, fullTime[0], divExtend, url);
 					flag = true;
 				} else {
-					// ob.unobserve(target);
 					if (lastPage == undefined) {
 						ob.unobserve(target);
 					} else {
 						let messageQty = lastPage["foundQty"];
-						console.log(messageQty);
+						// console.log(messageQty);
 						if (messageQty == 21) {
 							let time = lastPage["messageInfo"][0]["time"];
 							console.log(time);
@@ -280,6 +245,10 @@ async function buildPreviousPage(roomID, clickedTime, divEnd, url) {
 		let foundQty = time.length;
 		let lastMassage = [];
 		if (foundQty == 21) {
+			let secondDivTop = document.createElement("div");
+			// secondDivTop.className = "ooooooooooooooooo";
+			// console.log("ggggggggg");
+			divEnd.prepend(secondDivTop);
 			for (let length = 0; length < foundQty - 1; length++) {
 				if (length == 0) {
 					let perFullTime = fullTime[length];
@@ -300,12 +269,16 @@ async function buildPreviousPage(roomID, clickedTime, divEnd, url) {
 				};
 
 				if (perName == userInfo["name"]) {
-					buildHistoryMessageBox(fullInfo, divEnd);
+					buildHistoryMessageBox(fullInfo, secondDivTop);
 				} else {
-					buildFriendHistoryMessageBox(fullInfo, divEnd);
+					buildFriendHistoryMessageBox(fullInfo, secondDivTop);
 				}
 			}
 		} else {
+			let secondDivTop = document.createElement("div");
+			// secondDivTop.className = "ooooooooooooooooo";
+			// console.log("ssss");
+			divEnd.prepend(secondDivTop);
 			for (let length = 0; length < foundQty; length++) {
 				let perImg = img[length];
 				let perName = user[length];
@@ -318,9 +291,9 @@ async function buildPreviousPage(roomID, clickedTime, divEnd, url) {
 				};
 
 				if (perName == userInfo["name"]) {
-					buildHistoryMessageBox(fullInfo, divEnd);
+					buildHistoryMessageBox(fullInfo, secondDivTop);
 				} else {
-					buildFriendHistoryMessageBox(fullInfo, divEnd);
+					buildFriendHistoryMessageBox(fullInfo, secondDivTop);
 				}
 			}
 			lastPage = undefined;

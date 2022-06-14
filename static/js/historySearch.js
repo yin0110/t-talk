@@ -10,6 +10,8 @@ let searchFlag = false;
 let searchHistoryIcon = document.querySelector(".history__search__icon");
 searchHistoryIcon.addEventListener("click", getSearchClick);
 historyInput.addEventListener("keypress", getSearchInfo);
+let previousPage = null;
+let nextPage = null;
 function openSearch() {
 	if (searchFlag == false) {
 		// paintDiv.style.display = "block";
@@ -136,176 +138,109 @@ async function loadSearchHistory(roomID, clickedTime, clickedHistory) {
 	let chatroomContnet = document.querySelector(".chattingRoom--content");
 	chatroomContnet.innerHTML = "";
 	let divEnd = chatroomContnet;
-	let nextPage = null;
-	let topDiv = document.createElement("div");
-	chatroomContnet.appendChild(topDiv);
-	let topExtendDiv = document.createElement("div");
-	chatroomContnet.appendChild(topExtendDiv);
 
 	//向下滑//////
 	let apiUrl = `/api/load_search/${roomID}/${clickedTime}`;
-	nextPage = await buildHistoryNextPage(roomID, clickedTime, divEnd, apiUrl);
+	await buildHistoryNextPage(roomID, clickedTime, divEnd, apiUrl);
 	/////////////////////////////////////////////////////////////
-
-	let result = null;
-	if (topExtendDiv.id == "top__extend__div") {
-		let options = {
-			root: null,
-			// document.querySelector(".siteOuter"),
-			rootmargin: "-5px",
-			threshold: 0.05,
-		};
-		const observer = new IntersectionObserver(topChat, options);
-		const target = topDiv;
-		observer.observe(target);
-		let messageQty = result["foundQty"];
-		confirm.log(messageQty);
-		function topChat(entries, ob) {
-			entries.forEach(async (entry) => {
-				if (entry.isIntersecting) {
-					if (messageQty == 21) {
-						let time = result["messageInfo"]["time"];
-						let url = `/api/search_load_earlier_data/${roomID}/${time}`;
-						let firstDiv = chatroomContnet.childNodes[2];
-						let value = firstDiv.offsetTop;
-						result = await buildHistoryNextPage(
-							roomID,
-							clickedTime,
-							topExtendDiv,
-							url
-						);
-						chatroomContnet.scrollTop = firstDiv.offsetTop - value;
-						// console.log(a);
-					} else {
-						ob.unobserve(target);
-					}
-				}
-			});
-		}
-	} else {
-		topExtendDiv.id = "top__extend__div";
-		let options = {
-			root: null,
-			rootmargin: "-5px",
-			threshold: 0.05,
-		};
-		const observer = new IntersectionObserver(topChat, options);
-		const target = topDiv;
-		observer.observe(target);
-		let flag = false;
-		function topChat(entries, ob) {
-			entries.forEach(async (entry) => {
-				if (entry.isIntersecting) {
-					if (flag == false) {
-						let url = `/api/search_load_earlier_data/${roomID}/${clickedTime}`;
-						let firstDiv = chatroomContnet.childNodes[2];
-						let value = firstDiv.offsetTop;
-						result = await buildHistoryNextPage(
-							roomID,
-							clickedTime,
-							topExtendDiv,
-							url
-						);
-						// console.log(result);
-						chatroomContnet.scrollTop = firstDiv.offsetTop - value;
-						flag = true;
-					} else {
-						ob.unobserve(target);
-					}
-				}
-			});
-		}
-	}
 
 	await loadNextPage(nextPage, roomID);
 }
 
-async function buildHistoryNextPage(roomID, clickedTime, divEnd, url) {
-	// let apiUrl = `/api/load_search/${roomID}/${clickedTime}`;
-	let method = "GET";
-	let response = await fetch(url, {
-		method: method,
-	});
-	let statusCode = await response.json();
-	let historyInfo = statusCode["data"];
-	let userInfo = statusCode["user"];
-	let history = [];
-	let fullTime = [];
-	let time = [];
-	let user = [];
-	let img = [];
-	let friendDiv = document.querySelector(".chattingRoom--chatPerson__name");
-	let friendName = friendDiv.innerHTML;
-	let friendImgDiv = document.querySelector(".chattingRoom--chatPerson__img");
-	let friendImg = friendImgDiv.src;
-	for (data in historyInfo) {
-		let allName = historyInfo[data].user;
-		if (allName == userInfo["user_namespace"]) {
-			userName = userInfo["name"];
-			user.push(userName);
-			img.push(userInfo["img"]);
-		} else {
-			user.push(friendName);
-			img.push(friendImg);
-		}
-		let historyTime = historyInfo[data].time;
-		let stringTime = historyTime.toString();
-		hr = stringTime.slice(8, 10);
-		min = stringTime.slice(10, 12);
-		let messageTimg = hr + ":" + min;
-		time.push(messageTimg);
-		fullTime.push(historyTime);
-		let allHistory = historyInfo[data].history;
-		history.push(allHistory);
-	}
-	let foundQty = time.length;
-	let lastMassage = [];
-	if (foundQty == 21) {
-		for (let length = 0; length < foundQty - 1; length++) {
-			let perImg = img[length];
-			let perFullTime = fullTime[length];
-			let perName = user[length];
-			let perTime = time[length];
-			let perHistory = history[length];
-			let fullInfo = {
-				user_Img: perImg,
-				message: perHistory,
-				time: perTime,
-			};
-
-			if (perName == userInfo["name"]) {
-				buildHistoryMessageBox(fullInfo, divEnd);
-			} else {
-				buildFriendHistoryMessageBox(fullInfo, divEnd);
-			}
-			if (length == 19) {
-				let searchInfo = { time: perFullTime, history: perHistory };
-				lastMassage.push(searchInfo);
-				nextPage = { messageInfo: lastMassage, foundQty: foundQty };
-				return nextPage;
-			}
-		}
+async function buildSearchPrevioudPage(roomID, clickedTime, divEnd, url) {
+	let apiUrl = `/api/search_load_earlier_data/${roomID}/${clickedTime}`;
+	if (clickedTime == undefined) {
 	} else {
-		for (let length = 0; length < foundQty; length++) {
-			let perImg = img[length];
-			let perName = user[length];
-			let perTime = time[length];
-			let perHistory = history[length];
-			let fullInfo = {
-				user_Img: perImg,
-				message: perHistory,
-				time: perTime,
-			};
-
-			if (perName == userInfo["name"]) {
-				buildHistoryMessageBox(fullInfo, divEnd);
+		let method = "GET";
+		let response = await fetch(apiUrl, {
+			method: method,
+		});
+		let statusCode = await response.json();
+		let historyInfo = statusCode["data"];
+		let userInfo = statusCode["user"];
+		let history = [];
+		let fullTime = [];
+		let time = [];
+		let user = [];
+		let img = [];
+		let friendDiv = document.querySelector(".chattingRoom--chatPerson__name");
+		let friendName = friendDiv.innerHTML;
+		let friendImgDiv = document.querySelector(".chattingRoom--chatPerson__img");
+		let friendImg = friendImgDiv.src;
+		for (data in historyInfo) {
+			let allName = historyInfo[data].user;
+			if (allName == userInfo["user_namespace"]) {
+				userName = userInfo["name"];
+				user.push(userName);
+				img.push(userInfo["img"]);
 			} else {
-				buildFriendHistoryMessageBox(fullInfo, divEnd);
+				user.push(friendName);
+				img.push(friendImg);
 			}
+			let historyTime = historyInfo[data].time;
+			let stringTime = historyTime.toString();
+			hr = stringTime.slice(8, 10);
+			min = stringTime.slice(10, 12);
+			let messageTimg = hr + ":" + min;
+			time.push(messageTimg);
+			fullTime.push(historyTime);
+			let allHistory = historyInfo[data].history;
+			history.push(allHistory);
+		}
+		let foundQty = time.length;
+		let lastMassage = [];
+		if (foundQty == 21) {
+			let secondDivTop = document.createElement("div");
+			divEnd.prepend(secondDivTop);
+			for (let length = 0; length < foundQty - 1; length++) {
+				if (length == 0) {
+					let perFullTime = fullTime[length];
+					let perHistory = history[length];
+					let searchInfo = { time: perFullTime, history: perHistory };
+					lastMassage.push(searchInfo);
+					previousPage = { messageInfo: lastMassage, foundQty: foundQty };
+					// return nextPage;
+				}
+				let perImg = img[length];
+				// let perFullTime = fullTime[length];
+				let perName = user[length];
+				let perTime = time[length];
+				let perHistory = history[length];
+				let fullInfo = {
+					user_Img: perImg,
+					message: perHistory,
+					time: perTime,
+				};
+
+				if (perName == userInfo["name"]) {
+					buildHistoryMessageBox(fullInfo, secondDivTop);
+				} else {
+					buildFriendHistoryMessageBox(fullInfo, secondDivTop);
+				}
+			}
+		} else {
+			let secondDivTop = document.createElement("div");
+			divEnd.prepend(secondDivTop);
+			for (let length = 0; length < foundQty; length++) {
+				let perImg = img[length];
+				let perName = user[length];
+				let perTime = time[length];
+				let perHistory = history[length];
+				let fullInfo = {
+					user_Img: perImg,
+					message: perHistory,
+					time: perTime,
+				};
+
+				if (perName == userInfo["name"]) {
+					buildHistoryMessageBox(fullInfo, secondDivTop);
+				} else {
+					buildFriendHistoryMessageBox(fullInfo, secondDivTop);
+				}
+			}
+			previousPage = undefined;
 		}
 	}
-	nextPage = { messageInfo: lastMassage, foundQty: foundQty };
-	return nextPage;
 }
 
 async function buildHistoryNextPageReload(roomID, clickedTime, divEnd) {
@@ -420,6 +355,11 @@ async function loadNextPage(nextPageInfo, roomID) {
 			entries.forEach(async (entry) => {
 				if (entry.isIntersecting) {
 					if (loadMore == true) {
+						if (messageQty == 21) {
+							loadMore = true;
+						} else {
+							loadMore = false;
+						}
 						let time = nextPageInfo["messageInfo"]["0"]["time"];
 						nextPageInfo = await buildHistoryNextPageReload(
 							roomID,
@@ -427,11 +367,6 @@ async function loadNextPage(nextPageInfo, roomID) {
 							divEnd
 						);
 						messageQty = nextPageInfo["foundQty"];
-						if (messageQty == 21) {
-							loadMore = true;
-						} else {
-							loadMore = false;
-						}
 					} else {
 						ob.unobserve(target);
 					}
@@ -459,5 +394,143 @@ async function loadNextPage(nextPageInfo, roomID) {
 				}
 			});
 		}
+	}
+}
+
+async function buildHistoryNextPage(roomID, clickedTime, divEnd, url) {
+	let chatroomContnet = document.querySelector(".chattingRoom--content");
+	let topDiv = document.createElement("div");
+	chatroomContnet.appendChild(topDiv);
+	let topExtendDiv = document.createElement("div");
+	chatroomContnet.appendChild(topExtendDiv);
+	topExtendDiv.id = "top__extend__div";
+	let apiUrl = `/api/load_search/${roomID}/${clickedTime}`;
+	let method = "GET";
+	let response = await fetch(apiUrl, {
+		method: method,
+	});
+	let statusCode = await response.json();
+	let historyInfo = statusCode["data"];
+	let userInfo = statusCode["user"];
+	let history = [];
+	let fullTime = [];
+	let time = [];
+	let user = [];
+	let img = [];
+	let friendDiv = document.querySelector(".chattingRoom--chatPerson__name");
+	let friendName = friendDiv.innerHTML;
+	let friendImgDiv = document.querySelector(".chattingRoom--chatPerson__img");
+	let friendImg = friendImgDiv.src;
+	for (data in historyInfo) {
+		let allName = historyInfo[data].user;
+		if (allName == userInfo["user_namespace"]) {
+			userName = userInfo["name"];
+			user.push(userName);
+			img.push(userInfo["img"]);
+		} else {
+			user.push(friendName);
+			img.push(friendImg);
+		}
+		let historyTime = historyInfo[data].time;
+		let stringTime = historyTime.toString();
+		hr = stringTime.slice(8, 10);
+		min = stringTime.slice(10, 12);
+		let messageTimg = hr + ":" + min;
+		time.push(messageTimg);
+		fullTime.push(historyTime);
+		let allHistory = historyInfo[data].history;
+		history.push(allHistory);
+	}
+	let foundQty = time.length;
+	let lastMassage = [];
+	if (foundQty == 21) {
+		for (let length = 0; length < foundQty - 1; length++) {
+			let perImg = img[length];
+			let perFullTime = fullTime[length];
+			let perName = user[length];
+			let perTime = time[length];
+			let perHistory = history[length];
+			let fullInfo = {
+				user_Img: perImg,
+				message: perHistory,
+				time: perTime,
+			};
+
+			if (perName == userInfo["name"]) {
+				buildHistoryMessageBox(fullInfo, divEnd);
+			} else {
+				buildFriendHistoryMessageBox(fullInfo, divEnd);
+			}
+			if (length == 19) {
+				let searchInfo = { time: perFullTime, history: perHistory };
+				lastMassage.push(searchInfo);
+				nextPage = { messageInfo: lastMassage, foundQty: foundQty };
+			}
+		}
+	} else {
+		for (let length = 0; length < foundQty; length++) {
+			let perImg = img[length];
+			let perName = user[length];
+			let perTime = time[length];
+			let perHistory = history[length];
+			let fullInfo = {
+				user_Img: perImg,
+				message: perHistory,
+				time: perTime,
+			};
+
+			if (perName == userInfo["name"]) {
+				buildHistoryMessageBox(fullInfo, divEnd);
+			} else {
+				buildFriendHistoryMessageBox(fullInfo, divEnd);
+			}
+		}
+	}
+	nextPage = { messageInfo: lastMassage, foundQty: foundQty };
+	let options = {
+		root: null,
+		// document.querySelector(".siteOuter"),
+		rootmargin: "-5px",
+		threshold: 0.05,
+	};
+	const observer = new IntersectionObserver(topChat, options);
+	const target = topDiv;
+	observer.observe(target);
+	let flag = false;
+	function topChat(entries, ob) {
+		entries.forEach(async (entry) => {
+			if (entry.isIntersecting) {
+				if (flag == false) {
+					let url = `/api/search_load_earlier_data/${roomID}/${fullTime[0]}`;
+					let firstDiv = chatroomContnet.childNodes[2];
+					let value = firstDiv.offsetTop;
+					await buildSearchPrevioudPage(roomID, fullTime[0], topExtendDiv, url);
+					flag = true;
+					chatroomContnet.scrollTop = firstDiv.offsetTop - value;
+				} else {
+					if (previousPage == undefined) {
+						ob.unobserve(target);
+					} else {
+						let messageQty = previousPage["foundQty"];
+						if (messageQty == 21) {
+							let time = previousPage["messageInfo"][0]["time"];
+							let url = `/api/search_load_earlier_data/${roomID}/${time}`;
+							let firstDiv = chatroomContnet.childNodes[2];
+							let value = firstDiv.offsetTop;
+							await buildSearchPrevioudPage(roomID, time, topExtendDiv, url);
+							chatroomContnet.scrollTop = firstDiv.offsetTop - value;
+						} else {
+							let time = previousPage["messageInfo"][0]["time"];
+							let url = `/api/search_load_earlier_data/${roomID}/${time}`;
+							let firstDiv = chatroomContnet.childNodes[2];
+							let value = firstDiv.offsetTop;
+							await buildSearchPrevioudPage(roomID, time, topExtendDiv, url);
+							chatroomContnet.scrollTop = firstDiv.offsetTop - value;
+							ob.unobserve(target);
+						}
+					}
+				}
+			}
+		});
 	}
 }

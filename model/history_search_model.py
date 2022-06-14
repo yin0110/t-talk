@@ -16,6 +16,11 @@ class elastic_db:
 
     def search_related_content(self, room_id, time):
         query = {
+            "sort": [{
+                "time": {                 # 根據age欄位升序排序
+                    "order": "asc"       # asc升序，desc降序
+                }
+            }],
             "query": {
                 "bool": {
                     "must": [
@@ -42,6 +47,11 @@ class elastic_db:
 
     def search_earlier_data(self, room_id, time):
         query = {
+            "sort": [{
+                "time": {                 # 根據age欄位升序排序
+                    "order": "desc"       # asc升序，desc降序
+                }
+            }],
             "query": {
                 "bool": {
                     "must": [
@@ -52,8 +62,9 @@ class elastic_db:
                     ]
                 }
             },
-            "from": 0,
-            "size": 21
+            # "from": 0,
+            "size": 21,
+
         }
         user = get_user_info()
         history_info = []
@@ -62,6 +73,10 @@ class elastic_db:
             info = {"user": hit["_source"]["user"], "time": hit["_source"]
                     ["time"], "history": hit["_source"]["history"]}
             history_info.append(info)
+
+        def get_time(history_info):
+            return history_info["time"]
+        history_info.sort(key=get_time)
         data = jsonify({"data": history_info, "user": user})
         return data
 
@@ -96,8 +111,12 @@ class elastic_db:
         for hit in resp['hits']['hits']:
             info = {"user": hit["_source"]["user"], "time": hit["_source"]
                     ["time"], "history": hit["_source"]["history"]}
+            # info1 = {"user": hit["_source"]["user"], "time": hit["_source"]
+            #          ["time"], "history": hit["_source"]}
             history_info.append(info)
+            # info2.append(info1)
         data = jsonify({"data": history_info, "user": user})
+        # print(resp)
         return data
 
 
