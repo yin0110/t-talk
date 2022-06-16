@@ -99,16 +99,11 @@ function startDraw() {
 		window.location.href = saveImg;
 	});
 
-	// const downloadLink = document.querySelector(".brushes__box__lineImg");
-	// downloadLink.addEventListener("click", function () {
-	// 	downloadLink.href = canvas.toDataURL("image/png");
-	// 	downloadLink.download = "pic";
-	// });
-
 	let socketChat = io("/talk");
 	socketChat.emit("join", {
 		roomID: roomID,
 	});
+	console.log(roomID);
 
 	let context = canvas.getContext("2d");
 	context.fillStyle = "#FFFFFF";

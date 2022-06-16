@@ -53,6 +53,7 @@ async function getSearchInfo(event) {
 		});
 		let statusCode = await fetchInfo.json();
 		let historyInfo = statusCode["data"];
+		console.log(historyInfo);
 		let userInfo = statusCode["user"];
 		buildHistoryList(historyInfo, userInfo);
 		Array.from(document.querySelectorAll(".history__chatInfo")).forEach(

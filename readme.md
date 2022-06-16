@@ -14,13 +14,21 @@ Here's the website : https://www.t-talk.site/
 - User : test@test.com
 - Password : 123456
 
+## Catalog
+
+- [Main Features](#main-features)
+- [System Architecture](#system-architecture)
+- [Backend Technique](#backend-technique)
+- [Front-End Technique](#front-end-technique)
+- [Contact](#contact)
+
 ## Main Features
 
 #### Login
 
 - Authenticate user with JSON Web Token & implemented by flask middleware
 
-#### Use Socket IO to achieve real-time chat
+#### Use Socket.IO to achieve real-time chat
 
 - User can chat with friends and detect friends' typing event.
 
@@ -28,7 +36,7 @@ Here's the website : https://www.t-talk.site/
 <img src="https://raw.githubusercontent.com/yin0110/t-talk/main/static/img/chat.gif" alt="drawing"/>
 </p>
 
-#### Use Canvas & Socket IO to do online drawing board
+#### Use Canvas & Socket.IO to do online drawing board
 
 - Provide drawing & changing colors & eraser & downloading functions.
 
@@ -95,6 +103,7 @@ Here's the website : https://www.t-talk.site/
 
 - HTML
 - CSS
+- Canvas
 - JavaScript
 - AJAX
 

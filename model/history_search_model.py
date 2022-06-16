@@ -91,32 +91,30 @@ class elastic_db:
                 "bool": {
                     "must": [
                         {
-                            'match': {
-                                'room_id': room_id
-                            },
-
                             "match": {
+                                'room_id': room_id
+                            }
+                        },
+                        {
+                            "match_phrase": {
                                 'history': search_info
                             }
-
-                        }]
+                        }
+                    ]
 
                 }
 
             }
         }
+
         user = get_user_info()
         history_info = []
         resp = elastic_search.search(index='history', body=query)
         for hit in resp['hits']['hits']:
             info = {"user": hit["_source"]["user"], "time": hit["_source"]
                     ["time"], "history": hit["_source"]["history"]}
-            # info1 = {"user": hit["_source"]["user"], "time": hit["_source"]
-            #          ["time"], "history": hit["_source"]}
             history_info.append(info)
-            # info2.append(info1)
         data = jsonify({"data": history_info, "user": user})
-        # print(resp)
         return data
 
 

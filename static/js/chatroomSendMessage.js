@@ -1,21 +1,12 @@
-let socketChat = io("/talk");
-
+// async function joinppppp(roomID) {
 //取得message input 對應div以及設置enter事件
 let input = document.querySelector(".messageBar__texting__input");
 input.addEventListener("keypress", getMessage);
-// input.addEventListener("click", test);
-// function test() {
-// 	let charFriend = document.querySelector(".chattingRoom--chatPerson__name");
-// 	let roomID = charFriend.id;
-// 	socketChat.emit("message", {
-// 		roomID: roomID,
-// 		message: "first-connect",
-// 		roomName: "",
-// 	});
-// }
 //取得send button並設置click event
 let sendButton = document.querySelector(".messageBar__send");
 sendButton.addEventListener("click", click);
+let socketChat = io("/talk");
+
 async function click() {
 	clientMessage = input.value;
 	if (clientMessage.length == 0) {
@@ -77,3 +68,4 @@ socketChat.on("full_message", async function (fullInfo) {
 		}
 	}
 });
+// }

@@ -18,6 +18,9 @@ app.register_blueprint(search_handler)
 
 @ app.route("/")
 def index():
+    token = request.cookies.get('user_token')
+    if token:
+        return redirect("/chatroom")
     return render_template("login.html")
 
 
@@ -25,7 +28,7 @@ def index():
 def chat_room():
     token = request.cookies.get('user_token')
     if not token:
-        return render_template("login.html")
+        return redirect("/")
     return render_template("chatroom.html")
 
 

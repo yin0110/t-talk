@@ -3,6 +3,7 @@ from database import pool, dbRDS
 import jwt
 import datetime
 from datetime import timezone
+# from model.member_chatroom_info_model import add_friend
 
 
 class member:
@@ -59,7 +60,7 @@ class member:
                     "SELECT id, email FROM member_account WHERE email = %s", (email,))
                 info = cur.fetchone()
                 user_id = info["id"]
-                img = "https://my-message-board.s3.amazonaws.com/img/unknowuser.jpeg"
+                img = "https://my-message-board.s3.amazonaws.com/img/robot.png"
                 namespace = "/"+email
                 cur.execute("INSERT INTO member_info(name, user_id, img, user_namespace ) VALUES (%s, %s, %s, %s)",
                             (name, user_id, img, namespace))
