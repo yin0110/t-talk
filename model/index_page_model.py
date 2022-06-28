@@ -65,6 +65,10 @@ class member:
                 cur.execute("INSERT INTO member_info(name, user_id, img, user_namespace ) VALUES (%s, %s, %s, %s)",
                             (name, user_id, img, namespace))
                 cnx.commit()
+                user2 = "/000"
+                cur.execute("INSERT INTO member_friend(user_1, user_2) VALUES (%s, %s)",
+                            (namespace, user2,))
+                cnx.commit()
                 data = jsonify({"ok": True})
                 return data, 200
         except:

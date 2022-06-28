@@ -60,6 +60,7 @@ def add_friend():
                     (user1, user2,))
         cnx.commit()
         data = jsonify({"ok": True})
+        redis.delete(user1)
         return data, 200
     except:
         data = jsonify({"error": True,
