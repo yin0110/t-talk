@@ -161,7 +161,6 @@ async function loadHistory(roomID) {
 						// console.log(messageQty);
 						if (messageQty == 21) {
 							let time = lastPage["messageInfo"][0]["time"];
-							console.log(time);
 							let url = `/api/load_previous_history/${roomID}/${time}`;
 							let firstDiv = chatRoomSpace.childNodes[2];
 							let value = firstDiv.offsetTop;

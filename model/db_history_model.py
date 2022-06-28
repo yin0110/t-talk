@@ -23,7 +23,7 @@ class history:
             user_ns = user_info["user_namespace"]
             user = {"user_img": user_img, "user_ns": user_ns}
             result = db.collection("history").where(
-                "room_id", "==", room_id).order_by("user_time", direction=firestore.Query.DESCENDING).limit(8).stream()
+                "room_id", "==", room_id).order_by("user_time", direction=firestore.Query.DESCENDING).limit(9).stream()
             history_list = []
             for data in result:
                 history_list.append(data.to_dict())
